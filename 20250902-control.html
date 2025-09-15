@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>焦阿後台管理系統</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/my.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        .card .card-body {
+            min-height: 400px;
+            /* 依需求調整 */
+        }
+
+        @media screen and (max-width: 768px) {
+            .table-rwd thead {
+                display: none;
+            }
+
+            .table-rwd tbody tr {
+                display: block;
+                border: 5px solid var(--bg-color03);
+                margin-top: 15px;
+                box-shadow: 4px 4px 5px 2px var(--bg-color06);
+                border-radius: 15px;
+            }
+
+            /* overflow: hidden 溢位 跑版 最後才寫 不可能先預知 */
+            .table-rwd tbody tr td {
+                display: block;
+                overflow: hidden;
+            }
+
+            .table-rwd tbody tr td::before {
+                content: attr(data-th)" : ";
+                font-size: 18px;
+                font-weight: 900;
+                color: var(--text-color01);
+                display: block;
+                float: left;
+                width: 30%;
+                text-align: right;
+                padding-right: 15px;
+            }
+
+            .table-rwd tbody tr td span {
+                display: block;
+                float: left;
+                width: 70%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="control" class="d-none">
+        <!-- 選單 -->
+        <section class="s02 bg-dark">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+                    <div class="container-fluid">
+                        <a class="navbar-brand" href="#">
+                            <i class="fa-solid fa-kiwi-bird btn btn-outline-success fa-2x me-2"></i>
+                            焦阿的二手平台
+                        </a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page"
+                                        href="index.html">
+                                        <i class="fa-solid fa-house text-primary me-2"></i>首頁
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="20250812-product01-market.html">
+                                        <i class="fa-solid fa-shop text-info me-2"></i>賣場列表
+                                    </a>
+                                </li>
+                                <li id="productadd" class="nav-item d-none">
+                                    <a class="nav-link" href="20250812-product01-add.html">
+                                        <i class="fa-solid fa-bag-shopping text-primary me-2"></i>新增產品
+                                    </a>
+                                </li>
+                                <li id="productlist" class="nav-item d-none">
+                                    <a class="nav-link" href="20250812-product01-list.html">
+                                        <i class=" fa-solid fa-truck text-info me-2"></i>產品列表
+                                    </a>
+                                </li>
+                            </ul>
+                            <div>
+                                <!-- 註冊/登入按鈕（未登入時顯示）未引入功能先引導到首頁 -->
+                                <a href="http://localhost/project/20250812-index.html">
+                                    <button class="btn btn-outline-warning me-2" data-bs-toggle="modal"
+                                        data-bs-target="#registerModal" id="s02_register_btn">註冊</button>
+                                </a>
+                                <a href="http://localhost/project/20250812-index.html">
+                                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#loginModal"
+                                        id="s02_login_btn">登入</button>
+                                </a>
+                                <!-- 歡迎詞（登入後顯示） -->
+                                <span class="text-success fs-3 me-3 d-none" id="login_showmessage">
+                                    歡迎 <span class="text-warning fs-3 fw-900" id="login_showmessage2">XXX</span>
+                                </span>
+
+                                <!-- 控制台（管理員才顯示） -->
+                                <a href="20250902-control.html" class="fs-5 fw-900 btn btn-info d-none"
+                                    id="s02_control_btn">控制台</a>
+
+                                <!-- 登出（登入後顯示） -->
+                                <a href="20250812-index.html" class="fs-5 fw-900 btn btn-danger d-none"
+                                    id="logout_btn">登出</a>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </section>
+
+        <div class="container">
+            <!-- 數據圖 -->
+            <div class="row">
+                <div class="col-md-6 my-4">
+                    <div class="card shadow-lg h-100">
+                        <div class="card-header text-bg-success">
+                            <div class="h3 fw-900 text-center">會員權限統計(長條圖)</div>
+                        </div>
+                        <div class="card-body ">
+                            <canvas id="myChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 my-4">
+                    <div class="card shadow-lg h-100">
+                        <div class="card-header text-bg-primary ">
+                            <div class="h3 fw-900 text-center">會員權限統計(圓餅圖)</div>
+                        </div>
+                        <div class="card-body ">
+                            <canvas id="myChart2"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+
+            <!-- 框架 -->
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-10 mt-4">
+                    <div class="card">
+                        <div class="card-header text-bg-warning">
+                            <div class="h3 fw-900 text-center">會員資料列表</div>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-bordered table-rwd">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>編號</th>
+                                        <th>權限</th>
+                                        <th>帳號</th>
+                                        <th>信箱</th>
+                                        <th>註冊時間</th>
+                                        <th>功能</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody id="usertbody">
+                                    <tr>
+                                        <td data-th="編號">001</td>
+                                        <td data-th="權限">XX</td>
+                                        <td data-th="帳號">XX</td>
+                                        <td data-th="Email">XX</td>
+                                        <td data-th="註冊時間">XX</td>
+                                        <td data-th="功能">
+                                            <button class="btn btn-outline-warning" data-bs-toggle="modal"
+                                                data-bs-target="#updateModal">更新</button>
+                                            <button class="btn btn-outline-danger">刪除</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="my-4">
+     <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center " id="mypage">
+                    <li class="page-item disabled mypage">
+                        <span aria-hidden="true">最前頁</span>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <span aria-hidden="true">最後頁</span>
+                    </li>
+                </ul>
+            </nav>
+    </div>
+    <!-- 跳出更新介面 -->
+    <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header text-bg-warning">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">會員資料更新</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="" class="form-label fs-5">帳號</label>
+                        <input type="text" class="form-control" name="" id="updateModal_username" disabled>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="" class="form-label fs-5">密碼</label>
+                        <input type="text" class="form-control" name="" id="updateModal_password"
+                            placeholder="至少8個字,大小寫字母,至少一個數字及特殊符號">
+                        <div class="valid-feedback">符合</div>
+                        <div class="invalid-feedback" id="userPwd">不符合</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="" class="form-label fs-5">email</label>
+                        <input type="email" class="form-control" name="" id="updateModal_email">
+                        <div class="valid-feedback">符合</div>
+                        <div class="invalid-feedback">不符合</div>
+                    </div>
+
+                    <div class=" fs-5 fw-900 mb-2 form-label text-primary ">請選擇等級</div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" value="9" name="radio_role" checked>
+                        <label for="" class="form-check-label">管理者</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" value="1" name="radio_role">
+                        <label for="" class="form-check-label">高級會員</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" value="0" name="radio_role">
+                        <label for="" class="form-check-label">一般會員</label>
+                    </div>
+                </div>
+
+
+                <div class="text-center my-3">
+                    <button type="button" class="btn btn-outline-secondary btn-Close"
+                        data-bs-dismiss="modal">取消</button>
+                    <button class="btn btn-outline-primary" id="updateModal_update_btn">確認更新</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/chart.js"></script>
+    <script>
+        let u_id;
+        let flag_email = false;
+        let flag_password = false;
+        let mychart;
+        let mychart2;
+        let allUsers = [];
+        let newData = [];
+        let currentPage = 0;
+
+        $(function () {
+            //表一
+            const ctx = document.getElementById('myChart');
+            const mychart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['選項A', '選項B', '選項C', '選項D', '選項E', '選項F', '選項G', '選項H'],
+                    datasets: [{
+                        label: '項目統計分析圖',
+                        data: [120, 190, 300, 450, 230, 800, 600, 290],
+                        borderWidth: 1,
+                        backgroundColor: [
+                            'rgba(54, 162, 235, 0.6)',   // 天空藍
+                            'rgba(153, 102, 255, 0.6)',  // 淡紫色
+                            'rgba(255, 99, 132, 0.6)',   // 粉紅紅
+                            'rgba(255, 206, 86, 0.3)',   // 淡黃色
+                            'rgba(75, 192, 192, 0.3)',   // 淺綠藍
+                            'rgba(255, 159, 64, 0.3)',   // 橘色
+                            'rgba(199, 199, 199, 0.3)',  // 淺灰色
+                            'rgba(255, 99, 255, 0.3)'    // 粉紫色
+                        ]
+
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,  // 關閉比例鎖定
+                    scales: {//true代表從0開始計算 反之
+                        y: {
+                            beginAtZero: false
+                        }
+                    }
+                }
+            });
+            //表二
+            const ctx2 = document.getElementById('myChart2');
+            const mychart2 = new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: ['選項A', '選項B', '選項C', '選項D', '選項E', '選項F', '選項G', '選項H'],
+                    datasets: [{
+                        label: '項目統計分析圖',
+                        data: [120, 190, 300, 450, 230, 800, 600, 290],
+                        borderWidth: 1,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.3)',   // 粉紅紅
+                            'rgba(54, 162, 235, 0.3)',   // 天空藍
+                            'rgba(255, 206, 86, 0.3)',   // 淡黃色
+                            'rgba(75, 192, 192, 0.3)',   // 淺綠藍
+                            'rgba(153, 102, 255, 0.3)',  // 淡紫色
+                            'rgba(255, 159, 64, 0.3)',   // 橘色
+                            'rgba(199, 199, 199, 0.3)',  // 淺灰色
+                            'rgba(255, 99, 255, 0.3)'    // 粉紫色
+                        ]
+
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,  // 關閉比例鎖定
+                    scales: {//true代表從0開始計算 反之
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            //讀取用戶資料
+            $.ajax({
+                type: "GET",
+                url: "20250827-member-API.php?action=getuserdata",
+                dataType: "json",
+                success: showdata_getuserdata,
+                error: function () {
+                    Swal.fire({
+                        title: "讀取用戶資料失敗！",
+                        icon: "error",
+                        confirmButtonText: "確認"
+                    }).then(() => {
+                        // 失敗也強制回首頁
+                        window.location.href = "20250812-index.html";
+                    });
+                }
+            });
+            //讀取用戶數據資料
+            $.ajax({
+                type: "GET",
+                url: "20250827-member-API.php?action=getuserchartrole",
+                dataType: "json",
+                success: showdata_role,
+                error: function () {
+                    Swal.fire({
+                        title: "讀取權限數據失敗！",
+                        icon: "error",
+                        confirmButtonText: "確認"
+                    });
+                }
+            });
+            //讀取用戶登入頻率資料
+            $.ajax({
+                type: "GET",
+                url: "20250827-member-API.php?action=getuserlogincount",
+                dataType: "json",
+                success: showdata_logincount,
+                error: function () {
+                    Swal.fire({
+                        title: "讀取頻率數據失敗！",
+                        icon: "error",
+                        confirmButtonText: "確認"
+                    });
+                }
+            });
+
+            // 更新按鈕->填入 Modal
+            $(document).on("click", ".update_btn", function () {
+                u_id = $(this).data("id");
+                $("#updateModal_username").val($(this).data("username"));
+                $("#updateModal_email").val($(this).data("email"));
+                $("#updateModal_password").val(""); // 清空密碼欄位
+
+                const role = $(this).attr("data-role");  // 永遠抓最新的 結構 屬性
+                $(`input[name='radio_role'][value='${role}']`).prop("checked", true);
+            });
+            // 確認更新
+            $("#updateModal_update_btn").click(function () {
+                let emailVal = $("#updateModal_email").val().trim();
+                let passwordVal = $("#updateModal_password").val().trim();
+                let roleVal = $("input[name='radio_role']:checked").val();
+
+                // 直接重新驗證 email 格式
+                const getemail = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+                if (!getemail.test(emailVal)) {
+                    Swal.fire({ title: 'Email 格式錯誤', icon: "error" });
+                    return;
+                }
+
+                let jsonDATA = { id: u_id, email: emailVal, role: roleVal };
+
+
+                // 密碼非必填：有輸入才檢查 & 傳送
+                if (passwordVal) {
+                    if (!flag_password) {
+                        Swal.fire({
+                            title: '密碼格式錯誤',
+                            icon: "error"
+                        });
+                        return;
+                    }
+                    jsonDATA["password"] = passwordVal;
+                }
+
+                console.log(JSON.stringify(jsonDATA));
+
+                $.ajax({
+                    type: "POST",
+                    url: "20250827-member-API.php?action=updateuser",
+                    data: JSON.stringify(jsonDATA),
+                    dataType: "json",
+                    success: function (res) {
+                        showdata_updateuser(res, jsonDATA);
+                    },
+                    error: function () {
+                        Swal.fire({ title: "連線錯誤", icon: "error" });
+                    }
+                });
+            });
+            // 刪除
+            $(document).on("click", ".delete_btn", function () {
+                let id = $(this).data("id");
+
+                Swal.fire({
+                    title: "確認刪除此筆資料?",
+                    showDenyButton: true,
+                    confirmButtonText: "確認刪除",
+                    denyButtonText: `取消`
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        let jsonDATA = { id: id };
+                        console.log(JSON.stringify(jsonDATA));
+
+                        $.ajax({
+                            type: "POST",
+                            url: "20250827-member-API.php?action=deleteuser",
+                            data: JSON.stringify(jsonDATA),
+                            dataType: "json",
+                            success: function (res) {
+                                showdata_deleteuser(res, id);
+                            },
+                            error: function (xhr) {
+                                console.log("回應文字:", xhr.responseText);
+                                Swal.fire({ title: "刪除錯誤!", icon: "error" });
+                            }
+                        });
+                    }
+                });
+            });
+            // 密碼監聽
+            $("#updateModal_password").on("input", function () {
+                const getpassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+                if (getpassword.test($(this).val())) {
+                    $(this).removeClass("is-invalid").addClass("is-valid");
+                    $("#userPwd").text("");
+                    flag_password = true;
+                } else {
+                    $(this).removeClass("is-valid").addClass("is-invalid");
+                    $("#userPwd").text("密碼不符合規定");
+                    flag_password = false;
+                }
+            });
+            // email監聽
+            $("#updateModal_email").on("input", function () {
+                let val = $(this).val();
+
+                if (val === "") {
+                    // 如果不修改，就允許保留原本的 email
+                    $(this).removeClass("is-valid is-invalid");
+                    flag_email = true;
+                    return;
+                }
+
+                const getemail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+                if (getemail.test(val)) {
+                    $(this).removeClass("is-invalid").addClass("is-valid");
+                    flag_email = true;
+                } else {
+                    $(this).removeClass("is-valid").addClass("is-invalid");
+                    flag_email = false;
+                }
+            });
+
+            // 登入成功 > 顯示資料 + 分頁
+            function showdata_getuserdata(data) {
+                console.log("會員資料：", data);
+
+                if (!data.state) {
+                    Swal.fire({
+                        title: "想偷雞阿",
+                        icon: "error",
+                        confirmButtonText: "我錯了"
+                    }).then(() => {
+                        window.location.href = "20250812-index.html";
+                    });
+                    return;
+                }
+
+                $("#control").removeClass("d-none");
+                allUsers = data.data; // 存所有會員
+
+                // 重組成分頁資料
+                newData = [];
+                allUsers.forEach(function (item, key) {
+                    if (key % 10 === 0) {
+                        newData.push([]);
+                    }
+                    newData[parseInt(key / 10)].push(item);
+                });
+
+                // 預設顯示第 0 頁
+                drawView(0);
+
+                // 產生分頁按鈕
+                $("#mypage").empty();
+                $("#mypage").append(`<li class="page-item disabled" id="prevPage"><a class="page-link" href="#">上一頁</a></li>`);
+                newData.forEach(function (item, key) {
+                    var thispage = key + 1;
+                    var strHTML = `<li class="page-item ${key === 0 ? "active" : ""}">
+            <a class="page-link page-num" data-page="${key}" href="#">${thispage}</a></li>`;
+                    $("#mypage").append(strHTML);
+                });
+                $("#mypage").append(`<li class="page-item" id="nextPage"><a class="page-link" href="#">下一頁</a></li>`);
+
+                // 綁定上下頁
+                $("#prevPage").click(function (e) {
+                    e.preventDefault();
+                    if (currentPage > 0) {
+                        drawView(currentPage - 1);
+                    }
+                });
+                $("#nextPage").click(function (e) {
+                    e.preventDefault();
+                    if (currentPage < newData.length - 1) {
+                        drawView(currentPage + 1);
+                    }
+                });
+            }
+
+            // 畫指定頁面的資料
+            function drawView(pageIndex) {
+                currentPage = pageIndex;
+                $("#usertbody").empty();
+
+                newData[pageIndex].forEach((item) => {
+                    const strHTML = `
+        <tr id="row_${item.ID}">
+            <td data-th="編號">${item.ID}</td>
+            <td data-th="等級">${item.role}</td>
+            <td data-th="帳號">${item.Username}</td>
+            <td data-th="Email">${item.Email}</td>
+            <td data-th="註冊時間">${item.Create_at}</td>
+            <td data-th="功能">
+                <button class="btn btn-outline-warning update_btn" 
+                    data-bs-toggle="modal" 
+                    data-bs-target="#updateModal" 
+                    data-id="${item.ID}" 
+                    data-username="${item.Username}" 
+                    data-email="${item.Email}"
+                    data-role="${item.role}">更新</button>
+                <button class="btn btn-outline-danger delete_btn" data-id="${item.ID}">刪除</button>
+            </td>
+        </tr>`;
+                    $("#usertbody").append(strHTML);
+                });
+
+                // 更新分頁狀態
+                $("#mypage li").removeClass("active");
+                $("#mypage li").eq(pageIndex + 1).addClass("active"); // +1 因為有上一頁按鈕
+                $("#prevPage").toggleClass("disabled", pageIndex === 0);
+                $("#nextPage").toggleClass("disabled", pageIndex === newData.length - 1);
+            }
+
+            // 用 jQuery 綁定頁碼點擊
+            $(document).on("click", ".page-num", function (e) {
+                e.preventDefault();
+                let pageIndex = $(this).data("page");
+                drawView(pageIndex);
+            });
+
+
+            // 數據數字角色 → 文字角色
+            function roleToText(role) {
+                if (role == 0)
+                    return "一般會員";
+                if (role == 1)
+                    return "高級會員";
+                if (role == 9)
+                    return "管理者";
+
+                return "未知";
+            }
+
+            //會員等級統計
+            function showdata_role(data) {
+                console.log("會員等級統計：", data);
+
+                // 清空表一
+                mychart.data.labels = [];
+                mychart.data.datasets[0].data = [];
+
+                data.data.forEach(item => {
+                    if (item.role !== undefined && item.count_role !== undefined) {
+                        mychart.data.labels.push(roleToText(item.role));
+                        mychart.data.datasets[0].data.push(item.count_role);
+                    }
+                });
+
+                mychart.update();
+            }
+
+            //登入次數
+            function showdata_logincount(data) {
+                console.log("登入次數統計：", data);
+
+                // 清空表二
+                mychart2.data.labels = [];
+                mychart2.data.datasets[0].data = [];
+
+                data.data.forEach(item => {
+                    if (item.Username !== undefined && item.login_count !== undefined) {
+                        mychart2.data.labels.push(item.Username);
+                        mychart2.data.datasets[0].data.push(item.login_count);
+                    }
+                });
+
+                mychart2.update();
+            }
+
+            // 更新成功 > 即時修改
+            function showdata_updateuser(data, newData) {
+                if (data.state) {
+                    $(`#row_${newData.id} td[data-th="Email"]`).text(newData.email);
+                    $(`#row_${newData.id} td[data-th="等級"]`).text(newData.role);
+                    $(`#row_${newData.id} .update_btn`).attr("data-role", newData.role);
+
+                    Swal.fire({
+                        title: data.message,
+                        icon: "success",
+                        confirmButtonText: "確認"
+                    }).then(() => {
+                        $("#updateModal").modal("hide");
+                    });
+                } else {
+                    Swal.fire({ title: data.message, icon: "error" });
+                }
+            }
+
+            // 刪除成功 > 直接移除該列
+            function showdata_deleteuser(data, id) {
+                if (data.state) {
+                    $(`#row_${id}`).remove();
+                    Swal.fire({
+                         title: data.message, 
+                         icon: "success" });
+                } else {
+                    Swal.fire({ title: data.message, icon: "error" });
+                }
+            }
+
+        });
+    </script>
+
+
+</body>
+
+</html>

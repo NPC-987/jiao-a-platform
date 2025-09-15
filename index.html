@@ -1,0 +1,1509 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>焦阿的首頁</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/my.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+    <style>
+        /* 調整提醒條文字閃爍效果 */
+        #s01 i {
+            animation-duration: 2s;
+            /* 閃爍速度 */
+        }
+
+        #s01 span {
+            white-space: nowrap;
+            /* 避免斷行 */
+        }
+
+
+        .title-line {
+            display: flex;
+            align-items: center;
+            text-align: center;
+        }
+
+        .title-line::before,
+        .title-line::after {
+            content: "";
+            flex: 1;
+            border-bottom: 5px solid #181614;
+            /* 線條顏色 */
+            margin: 0 10px;
+            /* 線條與文字間距 */
+        }
+
+        .title-line2 {
+            display: flex;
+            align-items: center;
+            text-align: center;
+        }
+
+        .title-line2::before,
+        .title-line2::after {
+            content: "";
+            flex: 1;
+            border-bottom: 5px solid #ffffff;
+            /* 線條顏色 */
+            margin: 0 10px;
+            /* 線條與文字間距 */
+        }
+
+        hr {
+            border: 7px dashed #000000;
+        }
+
+        .carousel-item {
+            height: 90vh;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .feedback-section {
+            background-color: #f9f9f9;
+            /* 淺灰底，和公告/FAQ區隔 */
+        }
+
+        .feedback-card {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .feedback-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .feedback-card h5 {
+            color: #333;
+            font-weight: bold;
+        }
+
+        .feedback-card p {
+            color: #555;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        #s10 img {
+            height: 120px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        .marquee {
+            overflow: hidden;
+            position: relative;
+            background: transparent;
+            height: 200px;
+        }
+
+        .marquee-content {
+            display: flex;
+            width: max-content;
+            /* 讓內容橫向展開 */
+            animation: scroll-left 20s linear infinite;
+            /* 跑完一趟的時間 */
+        }
+
+        .case-card {
+            flex: 0 0 auto;
+            width: 280px;
+            margin: 0 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            /* 距離底部 20px */
+            right: 20px;
+            /* 距離右邊 20px */
+            display: none;
+            /* 預設隱藏 */
+            background-color: #2e7d32;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+            z-index: 9999;
+            /* 確保蓋在最上層 */
+        }
+
+        .back-to-top:hover {
+            background-color: #388e3c;
+        }
+
+
+        /* 跑馬燈功能 */
+        @keyframes scroll-left {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .timeline-section::before {
+                display: none;
+            }
+
+            .carousel-item {
+                height: 40vh;
+            }
+
+            .carousel-caption {
+                font-size: 0.9rem;
+                padding: 1rem;
+            }
+
+            .back-to-top {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- s01(防詐提醒條) -->
+    <section id="s01" class="bg-danger text-light">
+        <div class="container d-flex justify-content-center align-items-center py-2">
+            <i class="fa-solid fa-triangle-exclamation me-2 animate__animated animate__flash animate__infinite"></i>
+            <span class="fw-bold fs-5">防詐提醒：</span>
+            <span class="ms-1 fs-5">所有交易請透過平台支付系統完成，請勿私下轉帳！</span>
+        </div>
+    </section>
+
+    <!-- s02(選單) -->
+    <section class="s02 bg-dark">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="http://localhost/project/20250812-index.html">
+                        <i class="fa-solid fa-kiwi-bird btn btn-outline-success fa-2x me-2"></i>
+                        焦阿的二手平台
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="./20250812-index.html">
+                                    <i class="fa-solid fa-house text-primary me-2"></i>首頁
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="20250812-product01-market.html">
+                                    <i class="fa-solid fa-shop text-info me-2"></i>賣場列表
+                                </a>
+                            </li>
+                            <li id="productadd" class="nav-item d-none">
+                                <a class="nav-link" href="20250812-product01-add.html">
+                                    <i class="fa-solid fa-bag-shopping text-primary me-2"></i>新增產品
+                                </a>
+                            </li>
+                            <li id="productlist" class="nav-item d-none ">
+                                <a class="nav-link" href="20250812-product01-list.html">
+                                    <i class=" fa-solid fa-truck text-info me-2"></i>產品列表
+                                </a>
+                            </li>
+                        </ul>
+                        <div>
+                            <!-- 註冊/登入按鈕（未登入時顯示）未引入功能先引導到首頁 -->
+                            <!-- <a href="http://localhost/project/20250812-index.html"> -->
+                            <button class="btn btn-outline-warning me-2" data-bs-toggle="modal"
+                                data-bs-target="#registerModal" id="s02_register_btn">註冊</button>
+                            <!-- </a> -->
+                            <!-- <a href="http://localhost/project/20250812-index.html"> -->
+                            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#loginModal"
+                                id="s02_login_btn">登入</button>
+                            <!-- </a> -->
+                            <!-- 歡迎詞（登入後顯示） -->
+                            <span class="text-success fs-3 me-3 d-none" id="login_showmessage">
+                                歡迎 <span class="text-warning fs-3 fw-900" id="login_showmessage2">XXX</span>
+                            </span>
+
+                            <!-- 控制台（管理員才顯示） -->
+                            <a href="20250902-control.html" class="fs-5 fw-900 btn btn-info d-none"
+                                id="s02_control_btn">控制台</a>
+
+                            <!-- 登出（登入後顯示） -->
+                            <a href="20250812-index.html" class="fs-5 fw-900 btn btn-danger d-none"
+                                id="logout_btn">登出</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </section>
+
+    <!-- loginModal(登入) -->
+    <div class="modal fade" id="loginModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header text-bg-success">
+                    <h1 class="modal-title fs-5 fw-900" id="exampleModalLabel">會員登入</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="" class="form-label">帳號</label>
+                        <input type="text" class="form-control" id="loginModal_username" placeholder="請輸入帳號上限10個字">
+                        <div class="valid-feedback">符合規定</div>
+                        <div class="invalid-feedback">不符合規定</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">密碼</label>
+                        <input type="password" class="form-control" id="loginModal_password" placeholder="請輸入密碼">
+                        <div class="valid-feedback">符合規定</div>
+                        <div class="invalid-feedback">不符合規定</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="me-auto" data-bs-toggle="modal" data-bs-target="#registerModal">還沒有帳號, 註冊去!</a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" id="loginModal_ok_btn">登入</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- registerModal(註冊) -->
+    <div class="modal fade " id="registerModal" data-bs-backdrop="static" tabindex="-1"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class=" modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header text-bg-warning">
+                    <h1 class="modal-title fs-5 fw-900" id="exampleModalLabel">會員註冊</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class=" modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class=" card card-body mb-3">
+                                <div class="h5">會員註冊相關規定:</div>
+                                <div class="overflow-auto">
+                                    <ol>
+                                        <li>
+                                            需年滿 18 歲以上，或經監護人同意，方可註冊本平台。
+                                            註冊時需提供正確且完整的個人資料（帳號、密碼、聯絡方式等）。</li>
+                                        <li>會員需妥善保管帳號與密碼，不得將帳號轉借或轉讓他人使用。
+
+                                            如有異常登入或帳號被盜情形，請立即通知平台客服。</li>
+                                        <li>所有交易應透過平台系統進行，不得私下轉帳，以保障買賣雙方權益。
+
+                                            會員上架商品須屬於合法持有物品，不得涉及侵權、違禁品或非法商品。</li>
+                                        <li>會員不得以任何方式干擾平台正常運作（如惡意留言、詐騙行為）。
+
+                                            違反規定者，本平台有權暫停或終止帳號使用，並依法追究相關責任。</li>
+                                        <li>平台將依個資法規範，妥善保護會員個人資料，僅限於交易與服務所需之用途。</li>
+                                        <li>本平台保留隨時修改相關規定之權利，修改後將公告於網站上，恕不另行通知。</li>
+                                    </ol>
+                                </div>
+                            </div>
+
+                            <div class="my-3 form-check form-switch">
+                                <input type="checkbox" class="form-check-input is-invalid" id="switch01">
+                                <label for="" class="form-label">你得同意</label>
+                                <div class="invalid-feedback">必須同意規定才能下單</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mb-4 ">
+                                <label class="form-label">帳號</label>
+                                <input type="text" class="form-control" id="username" placeholder="字數1~10不包含特殊符號">
+                                <div class="valid-feedback" id="userMsg_valid">符合規定</div>
+                                <div class="invalid-feedback" id="userMsg_invalid">不符合規定</div>
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label">密碼</label>
+                                <input type="text" class="form-control" id="password"
+                                    placeholder="至少8個字,大小寫字母,至少一個數字及特殊符號">
+                                <div class="valid-feedback">符合規定</div>
+                                <div class="invalid-feedback" id="userPwd">不符合規定</div>
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label">確認密碼</label>
+                                <input type="password" class="form-control" id="confirmPassword" placeholder="必須與密碼一致">
+                                <div class="valid-feedback">符合</div>
+                                <div class="invalid-feedback" id="confirmMsg">不符合</div>
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label">Email</label>
+                                <input type="text" class="form-control" id="email" placeholder="符合email格式">
+                                <div class="valid-feedback">符合</div>
+                                <div class="invalid-feedback" id="useremail">不符合</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <a href="#" class="me-auto" data-bs-toggle="modal" data-bs-target="#loginModal">已有帳號</a>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                        <button id="registerModal_ok_btn" type="button" class="btn btn-primary">申請註冊</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- s03(廣告跑馬燈)  -->
+    <section id="s03">
+        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+                    aria-label="Slide 2"></button>
+
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+                    aria-label="Slide 3"></button>
+
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3"
+                    aria-label="Slide 4"></button>
+
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4"
+                    aria-label="Slide 5"></button>
+            </div>
+
+            <div class="carousel-inner">
+                <div class="carousel-item active" style="background-image: url(images/logo3.png);">
+                    <div class="carousel-caption d-none d-md-block p-3 rounded-3 shadow-lg"
+                        style="background-color: rgba(0, 0, 0, 0.3);">
+                        <h5>好物新生</h5>
+                        <p>每件舊物都值得擁有下一段故事</p>
+                    </div>
+                </div>
+                <div class="carousel-item bg-cover" style="background-image: url(images/logo10.png);">
+                    <div class="carousel-caption d-none d-md-block p-3 rounded-3 shadow-lg"
+                        style="background-color: rgba(0, 0, 0, 0.3);">
+                        <h5>再次出發</h5>
+                        <p>讓物品延續價值，也讓生活更有意義</p>
+                    </div>
+                </div>
+                <div class="carousel-item" style="background-image: url(images/logo11.png);">
+                    <div class="carousel-caption d-none d-md-block p-3 rounded-3 shadow-lg"
+                        style="background-color: rgba(0, 0, 0, 0.3);">
+                        <h5>找到歸屬</h5>
+                        <p>每次交易都是一次溫暖的連結</p>
+                    </div>
+                </div>
+                <div class="carousel-item" style="background-image: url(images/logo14.png);">
+                    <div class="carousel-caption d-none d-md-block p-3 rounded-3 shadow-lg"
+                        style="background-color: rgba(0, 0, 0, 0.3);">
+                        <h5>循環好物</h5>
+                        <p>讓資源流轉，讓環保與實惠同行</p>
+                    </div>
+                </div>
+                <div class="carousel-item" style="background-image: url(images/logo13.png);">
+                    <div class="carousel-caption d-none d-md-block p-3 rounded-3 shadow-lg"
+                        style="background-color: rgba(0, 0, 0, 0.3);">
+                        <h5>換你擁有</h5>
+                        <p>閒置不再沉睡，找到新主人正是時候</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+
+        </div>
+    </section>
+
+    <!-- s04(公司簡介) -->
+    <section id="s04">
+        <div class="container-fluid ">
+            <div class="row align-items-center">
+
+                <div class="col-12 col-md-5 bg-cover" style="background-image: url(images/logo7.png);height: 650px;">
+                    <div class="h1 fw-700 mb-4 text-center"
+                        style="background-color: rgba(0, 0, 0, 0.6);color: #ffffff;width: 100%; margin-top: 550px;">Kiwi
+                        Bird(奇異鳥)
+                    </div>
+                </div>
+                <div class="col-md-7 px-5 fw-700  bg-cover"
+                    style="background-image: url(images/bg07.jpg);height: 650px; ;">
+                    <div class="text-center">
+                        <div class="h1 fw-900 mt-5">在1987年<span class="text-success">台灣第一家</span></div>
+                        <div class="h1 mb-5">專業二手平台企劃</div>
+                        <p class="mb-1 fs-5">讓二手好物找到新主人，</p>
+                        <p class="mb-1 fs-5">也讓資源持續循環再利用。</p>
+                        <p class="mb-1 fs-5">專業、安全、有保障的交易環境，</p>
+                        <p class="mb-1 fs-5">打造最值得信賴的二手平台。</p>
+
+
+                        <div class="row mt-5">
+                            <div class="col-3">
+                                <div class="h4">每日交易量</div>
+                                <div class="h1 fw-900 text-success counter">9999<span class=" h4 text-dark ">/筆</span>
+                                </div>
+                            </div>
+
+                            <div class="col-3">
+                                <div class="h4">獲獎次數</div>
+                                <div class="h1 fw-900 text-primary counter01">8888<span class=" h4 text-dark">/項</span>
+                                </div>
+                            </div>
+
+                            <div class="col-3">
+                                <div class="h4">專業認證</div>
+                                <div class="h1 fw-900 text-warning counter02">10<span class=" h4 text-dark">/項</span>
+                                </div>
+                            </div>
+
+                            <div class="col-3">
+                                <div class="h4">公司據點</div>
+                                <div class="h1 fw-900  text-info counter03">100<span class="h4  text-dark">/個</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <!-- s05 (公司沿革) -->
+    <section id="s05" style="background-image: url(images/bg01.jpg); background-attachment: fixed;" class="bg-cover ">
+        <div class="container  bg-cover text-light" style="background-color: rgba(0,0,0,0.6);">
+            <div class="timeline-section">
+                <div class="row align-items-center">
+                    <div class="col-md-6  text-center fs-5  
+                        wow animate__animated animate__fadeInLeft" data-wow-duration="1s" data-wow-delay="0.5s">
+                        <div class="h1  fw-700 mb-4" style="background-color: rgba(0, 0, 0, 0.6);color: #ffffff;">關於我們
+                        </div>
+                        <p class=" fw-500  " id="text">我們是焦阿的二手平台，<br>
+                            一個專門收集「別人不要、你剛好需要」的寶庫。<br>
+                            我們相信 好物不該被丟棄，<br>
+                            它們只是在等下一個懂它的人。<br>
+                            不論你是想清空家裡的角落，<br>
+                            還是想用更划算的方式入手心頭好，<br>
+                            這裡，都是你的舞台。<br>
+                        </p>
+                    </div>
+                    <div class="col-md-6 wow animate__animated animate__fadeInRight" data-wow-duration="1s"
+                        data-wow-delay="0.5s ">
+                        <div class="bg-cover bg-cover01 " style="background-image:url(images/gift.gif); height: 360px;">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="row align-items-center mt-3 flex-md-row-reverse ">
+                        <div class="col-md-6 text-center fs-5 fw-900 
+                            wow animate__animated animate__fadeInRight" data-wow-duration="1s" data-wow-delay="0.5s ">
+                            <div class="h1 fw-700 mb-4" style="background-color: rgba(0, 0, 0, 0.6);color: #ffffff;">
+                                我們的初衷</div>
+                            <p class="mb-3 fw-500" id="text">我們想做的 不只是交易<br>
+                                而是一個讓物品重新找到價值的地方<br>
+                                在這裡 <br>
+                                你可以用閒置物品換到需要的東西，<br>
+                                也可以用小錢淘到大驚喜。<br>
+                                我們相信——<br>
+                                「每個物品的故事，<br>
+                                都值得再被續寫一次。」
+                            </p>
+                        </div>
+                        <div class="col-md-6  wow animate__animated 
+                        animate__fadeInLeft" data-wow-duration="1s" data-wow-delay="0.5s">
+                            <div class="bg-cover bg-cover01 "
+                                style="background-image:url(images/dance.gif); height: 360px;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-center mt-1 mb-0 ">
+                        <div class="col-md-6  text-center  fs-5 fw-900  
+                            wow animate__animated animate__fadeInLeft" data-wow-duration="0.9s" data-wow-delay="0.5s ">
+                            <div class="h1 fw-700 " style="background-color: rgba(0, 0, 0, 0.6);color: #ffffff;">我們的優勢
+                            </div>
+                            <p class=" fw-500" id="text">
+                                零距離交流：<br>買家賣家直接對話，交易更快速。<br>
+                                多種交易方式：<br>買、賣、交換，全看你怎麼玩。<br>
+                                故事滿滿的物品：<br>不只是二手貨，還附贈前任的故事。<br>
+                                尋寶氛圍感：<br>你永遠不知道下一頁會遇到什麼。<br>
+                        </div>
+                        <div class="col-md-6 wow animate__animated animate__fadeInRight" data-wow-duration="1s"
+                            data-wow-delay="0.5s">
+                            <div class="bg-cover bg-cover01 "
+                                style="background-image:url(images/run.gif); height: 360px;">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- s06(公司功能簡介) -->
+    <section id="s06" class="bg-cover d-none" style="background-image: url(images/bg04.jpg); ">
+
+        <div class="text-center text-white ">
+            <div style="background-color: rgba(0,0,0,0.5);">
+                <h1 class="display-4 fw-bold pt-3">在這邊你可以</h1>
+                <h3 class=" fw-500 ">
+                    擁有專屬產品控管平台，快速新增、瀏覽與管理商品，為自己多一份便利。
+                </h3>
+
+                <hr class="my-4 hr-thick">
+
+                <div class="row g-4 justify-content-center ">
+                    <div class="col-md-3 d-block mb-3 wow animate__animated animate__fadeInLeft" data-wow-duration="1s"
+                        data-wow-delay="0.3s ">
+                        <div class="card shadow-sm h-100 rounded-5 bg-cover01 bg-19 left-roller-box">
+                            <!-- 原本卡片內容 -->
+                            <div class="card-body text-center">
+                                <i class="fa-solid fa-plus fa-4x text-light mb-3"></i>
+                                <h5 class="card-title fs-2">快速新增商品</h5>
+                                <p class="card-text fs-5">透過簡易表單，立即新增您的新產品到系統。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 d-block mb-3 wow animate__animated animate__fadeInDown" data-wow-duration="1s"
+                        data-wow-delay="0.3s ">
+                        <div class="card shadow-sm h-100  rounded-5 bg-cover01 bg-20 top-roller-box">
+                            <div class="card-body text-center">
+                                <i class="fa-solid fa-list fa-4x text-light mb-3"></i>
+                                <h5 class="card-title fs-2">查看產品列表</h5>
+                                <p class="card-text fs-5">一目了然產品資訊，支援快速搜尋與篩選。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 d-block mb-3 wow animate__animated animate__fadeInRight" data-wow-duration="1s"
+                        data-wow-delay="0.3s ">
+                        <div class="card shadow-sm h-100  rounded-5 bg-cover01 bg-21 right-roller-box">
+                            <div class="card-body text-center">
+                                <i class="fa-solid fa-chart-line fa-4x text-light mb-3"></i>
+                                <h5 class="card-title fs-2">掌握營運狀況</h5>
+                                <p class="card-text fs-5">追蹤銷售與庫存，隨時掌握營運狀況。</p>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="mt-4 hr-thick">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- s07(公告消息) -->
+    <section id="s07" class="d-none" style="background-image: url(images/bg01.jpg);background-attachment: fixed;">
+        <div class="title-line pt-4 wow animate__animated animate__fadeInDown" data-wow-duration="1s"
+            data-wow-delay="0.3s ">
+            <span class="fs-1 fw-900 bg-dark text-light p-3 rounded-4 ">最新公告 / 平台消息</span>
+        </div>
+        <div class="timeline-section text-dark fw-500">
+
+            <div class="container ">
+
+                <hr class=" mt-3 mb-3" style="width: 100%;">
+
+                <div class="row gy-2 gx-5">
+                    <div class=" col-md-6  wow animate__animated animate__fadeInLeft" data-wow-duration="1s"
+                        data-wow-delay="0.5s">
+                        <div class="card feedback-card bg-light text-dark border-light h-100 ">
+                            <div class="card-body fw-900">
+                                <h5 class="card-title "><i
+                                        class="fa-solid fa-circle-exclamation me-2 text-warning"></i>平台更新公告</h5>
+                                <p class="card-text">2025/09/01 起，網站將全面優化手機版顯示，讓用戶在行動裝置上瀏覽更順暢。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 wow animate__animated animate__fadeInRight" data-wow-duration="1s"
+                        data-wow-delay="0.5s">
+                        <div class="card feedback-card bg-light text-dark border-light h-100">
+                            <div class="card-body fw-900">
+                                <h5 class="card-title"><i
+                                        class="fa-solid fa-circle-exclamation me-2 text-info"></i>新功能上線</h5>
+                                <p class="card-text">家裡小孩的東西一下就用不到了，丟掉又可惜。這平台讓我順利換到尿布、玩具，還認識了附近的媽友，超值！</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class=" my-3" style="width: 100%;">
+
+                <div class="row gy-2 gx-5">
+                    <div class="col-md-6 wow animate__animated animate__fadeInLeft" data-wow-duration="1s"
+                        data-wow-delay="0.5s">
+                        <div class="card feedback-card bg-light text-dark border-light h-100 ">
+                            <div class="card-body fw-900 ">
+                                <h5 class="card-title"><i
+                                        class="fa-solid fa-circle-exclamation me-2 text-danger"></i>系統維護通知</h5>
+                                <p class="card-text">2025/09/05 凌晨 2:00–4:00 系統將進行例行維護，期間暫停上架與交易功能。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 wow animate__animated animate__fadeInRight" data-wow-duration="1s"
+                        data-wow-delay="0.5s">
+                        <div class="card feedback-card bg-light text-dark border-light h-100 ">
+                            <div class="card-body fw-900 ">
+                                <h5 class="card-title"><i
+                                        class="fa-solid fa-circle-exclamation me-2 text-success"></i>安全提醒</h5>
+                                <p class="card-text">請勿私下轉帳！所有交易請透過平台支付系統完成，以保障買賣雙方權益。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="my-3" style="width: 100%; ">
+
+                <div class="row gy-2 gx-5">
+                    <div class="col-md-6 wow animate__animated animate__fadeInLeft" data-wow-duration="1s"
+                        data-wow-delay="0.5s">
+                        <div class="card feedback-card bg-light text-dark border-light h-100">
+                            <div class="card-body fw-900">
+                                <h5 class="card-title"><i
+                                        class="fa-solid fa-circle-exclamation me-2 text-primary"></i>會員活動消息</h5>
+                                <p class="card-text">九月會員專屬活動即將開始！上架滿 3 件商品，即可抽限量禮券。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 wow animate__animated animate__fadeInRight" data-wow-duration="1s"
+                        data-wow-delay="0.5s">
+                        <div class="card feedback-card bg-light text-dark border-light h-100">
+                            <div class="card-body fw-900">
+                                <h5 class="card-title"><i
+                                        class="fa-solid fa-circle-exclamation me-2 text-warning"></i>熱門商品快報</h5>
+                                <p class="card-text">近期遊戲機、3C 商品需求熱烈，建議賣家多關注這些品項，上架更容易成交。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="my-3" style="width: 100%; ">
+
+                <div class="row gy-2 gx-5">
+                    <div class="col-md-6 wow animate__animated animate__fadeInLeft" data-wow-duration="1s"
+                        data-wow-delay="0.5s">
+                        <div class="card feedback-card bg-light text-dark border-light h-100">
+                            <div class="card-body fw-900">
+                                <h5 class="card-title "><i
+                                        class="fa-solid fa-circle-exclamation me-2 text-info"></i>合作夥伴公告</h5>
+                                <p class="card-text">平台與當地大學社團合作，將在 9 月舉辦二手市集，會員可優先報名參加。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 wow animate__animated animate__fadeInRight" data-wow-duration="1s"
+                        data-wow-delay="0.5s">
+                        <div class="card feedback-card bg-light text-dark border-light h-100">
+                            <div class="card-body fw-900">
+                                <h5 class="card-title"><i
+                                        class="fa-solid fa-circle-exclamation me-2 text-success"></i>客服服務公告</h5>
+                                <p class="card-text">客服中心新增「即時回覆」功能，平均回覆時間縮短至 5 分鐘，協助解決疑問更快速！</p>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="mt-3" style="width: 100%;">
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <!-- s08(用戶反饋) -->
+    <section id="s08" class="bg-cover d-none" style="background-image: url(images/bg04.jpg); ">
+        <div style="background-color: rgba(0,0,0,0.5);">
+            <div class="title-line2 pt-4 wow animate__animated animate__fadeInDown" data-wow-duration="1s"
+                data-wow-delay="0.3s ">
+                <h1 class=" display-4 fw-900  text-light ">用戶反饋</h1>
+            </div>
+
+            <hr class=" my-3" style="width: 100%;">
+
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-md-6 wow animate__animated animate__fadeInDown" data-wow-duration="1s"
+                        data-wow-delay="0.3s ">
+                        <div class="card feedback-card p-3 h-100 bg-light text-dark">
+                            <div class="d-flex align-items-start">
+                                <i class="fa-solid fa-user-circle fa-3x me-3 text-secondary text-dark"></i>
+                                <div>
+                                    <h5 class="mb-1">阿成（上班族）</h5>
+                                    <p class="mb-0">我用它把堆在家裡的手辦換成 Switch 遊戲，超有成就感，比蝦皮還有趣！
+                                        交易還能聊個兩句，很人性化！</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 wow animate__animated animate__fadeInDown" data-wow-duration="1s"
+                        data-wow-delay="0.3s ">
+                        <div class="card feedback-card p-3 h-100 bg-light text-dark">
+                            <div class="d-flex align-items-start">
+                                <i class="fa-solid fa-user-circle fa-3x me-3 text-secondary text-warning"></i>
+                                <div>
+                                    <h5 class="mb-1">小澤（自由工作者）</h5>
+                                    <p class="mb-0">我習慣每季斷捨離一次，這平台讓我東西處理得乾淨俐落，不用丟，還能換到實用物，環保又實在！</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-md-5 wow animate__animated animate__fadeInUp" data-wow-duration="1s"
+                        data-wow-delay="0.3s ">
+                        <div class="card feedback-card p-3 h-100 bg-light text-dark">
+                            <div class="d-flex align-items-start">
+                                <i class="fa-solid fa-user-circle fa-3x me-3 text-secondary text-info"></i>
+                                <div>
+                                    <h5 class="mb-1">佩雯老師（國小教師）</h5>
+                                    <p class="mb-0">學校活動常常要找道具、教具，這裡讓我撿到不少寶，還換到超可愛的布偶跟教學模型，小朋友超愛！</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-5 wow animate__animated animate__fadeInUp" data-wow-duration="1s"
+                        data-wow-delay="0.3s ">
+                        <div class="card feedback-card p-3 h-100 bg-light text-dark">
+                            <div class="d-flex align-items-start">
+                                <i class="fa-solid fa-user-circle fa-3x me-3 text-secondary text-success"></i>
+                                <div>
+                                    <h5 class="mb-1">胖虎哥（工程師）</h5>
+                                    <p class="mb-0">原本只是想清倉，沒想到用幾次後上癮了，現在每週都固定整理出可交換的東西，比滑 IG 還上癮哈哈！</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- s09(FAQ) -->
+    <section id="s09" class="pt-0 mt-0 d-none"
+        style="background-image: url(images/bg01.jpg);background-attachment: fixed;">
+        <div class="title-line pt-3 mb-3 wow animate__animated animate__fadeInDown" data-wow-duration="1s"
+            data-wow-delay="0.3s ">
+            <span class="fs-1 fw-900 bg-dark text-light p-3 rounded-4 ">FAQ</span>
+        </div>
+        <div class="container fw-900 pb-3">
+            <div class="accordion accordion-flush wow animate__animated animate__fadeInDown" data-wow-duration="1s"
+                data-wow-delay="0.3s " id="accordionFlushExample">
+
+                <hr class=" my-3" style="width: 100%; ">
+                <div class="accordion-item ">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-900 fs-3" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                            ❓Q1：我要怎麼知道對方的商品是不是有瑕疵？
+                        </button>
+                    </h2>
+                    <div id="flush-collapseOne" class="accordion-collapse collapse"
+                        data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body fs-5">✅A1：
+                            我們鼓勵雙方在交換前透過聊天室充分溝通，並可要求清楚的商品照片與使用狀況描述。若遇到爭議，也可以聯絡平台協助處理。
+                        </div>
+                    </div>
+                </div>
+                <hr class=" my-3" style="width: 100%; ">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-900 fs-3" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                            ❓ Q2：如果我提出交換，對方一直不回應怎麼辦？
+                        </button>
+                    </h2>
+                    <div id="flush-collapseTwo" class="accordion-collapse collapse"
+                        data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body fs-5">✅ A2：
+                            部分用戶可能尚未登入或考慮中，建議您耐心等待 3～5 天後可取消申請，並繼續尋找其他合適的交換對象。</div>
+                    </div>
+                </div>
+                <hr class=" my-3" style="width: 100%; ">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-900 fs-3" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#flush-collapseThree" aria-expanded="false"
+                            aria-controls="flush-collapseThree">
+                            ❓ Q3：我可以只用賣的、不想交換可以嗎？
+                        </button>
+                    </h2>
+                    <div id="flush-collapseThree" class="accordion-collapse collapse"
+                        data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body fs-5">✅ A3：
+                            可以！平台支援「販售」與「交換」雙模式，您可在上架時選擇「僅販售」、「僅交換」或「皆可」選項，依需求自由調整。</div>
+                    </div>
+                </div>
+
+            </div>
+            <hr class=" mb-3" style="width: 100%; ">
+        </div>
+    </section>
+
+    <!-- s10(合作店家) -->
+    <section id="s10" style="background-image: url(images/bg04.jpg);" class="bg-cover">
+        <div style="background-color: rgba(0,0,0,0.5);">
+            <div class="title-line2 pt-4 wow animate__animated animate__fadeInDown" data-wow-duration="1s"
+                data-wow-delay="0.3s ">
+                <h1 class="display-4 fw-900 text-light">合作店家</h1>
+            </div>
+            <hr class="my-3" style="width: 100%;">
+            <div class="container">
+                <div class="row g-4 pb-5">
+                    <!-- 店家 1 -->
+                    <div class="col-md-3 col-6 wow animate__animated animate__fadeInLeft" data-wow-duration="1s"
+                        data-wow-delay="0.7s">
+                        <div class="card feedback-card  p-3 h-100 bg-light text-dark text-center">
+                            <img src="images/store01.jpg" class="img-fluid mb-3" alt="合作店家1">
+                            <h5 class="fw-bold">誠品書局</h5>
+                            <p class="small mb-0 fw-900">提供專屬二手書交換專區</p>
+                            <a href="https://www.eslite.com/?srsltid=AfmBOoo12HQdkDPPsSN3i9KiO6jNBmmGWCfziT0-TEdEpATtQPHkw7cQ"
+                                target="_blank" class="stretched-link"></a>
+                        </div>
+                    </div>
+
+                    <!-- 店家 2 -->
+                    <div class="col-md-3 col-6 wow animate__animated animate__fadeInDown" data-wow-duration="1s"
+                        data-wow-delay="0.7s ">
+                        <div class="card feedback-card p-3 h-100 bg-light text-dark text-center">
+                            <img src="images/store02.jpg" class="img-fluid mb-3" alt="合作店家2">
+                            <h5 class="fw-bold">全聯福利中心</h5>
+                            <p class="small mb-0 fw-900">支援特色手作、二手好物
+                                <a href="https://www.pxmart.com.tw/" target="_blank" class="stretched-link"></a>
+                        </div>
+                    </div>
+
+                    <!-- 店家 3 -->
+                    <div class="col-md-3 col-6 wow animate__animated animate__fadeInUp" data-wow-duration="1s"
+                        data-wow-delay="0.7s">
+                        <div class="card feedback-card p-3 h-100 bg-light text-dark text-center">
+                            <img src="images/store03.jpg" class="img-fluid mb-3" alt="合作店家3">
+                            <h5 class="fw-bold">麥當勞</h5>
+                            <p class="small mb-0 fw-900">與平台合作推動物資再利用</p>
+                            <a href="https://www.mcdonalds.com/tw/zh-tw.html" target="_blank"
+                                class="stretched-link"></a>
+                        </div>
+                    </div>
+
+                    <!-- 店家 4 -->
+                    <div class="col-md-3 col-6 wow animate__animated animate__fadeInRight" data-wow-duration="1s"
+                        data-wow-delay="0.7s">
+                        <div class="card feedback-card p-3 h-100 bg-light text-dark text-center">
+                            <img src="images/store04.jpg" class="img-fluid mb-3" alt="合作店家4">
+                            <h5 class="fw-bold">全家便利商店</h5>
+                            <p class="small mb-0 fw-900">提供二手小物交換點</p>
+                            <a href="https://www.family.com.tw/Marketing/zh" target="_blank" class="stretched-link"></a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- s11(地圖與聯絡資訊) -->
+    <section id="s11" class="bg-light py-3"
+        style="background-image: url(images/bg01.jpg);background-attachment: fixed;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 wow animate__animated animate__flipInX" data-wow-duration="1.5s"
+                    data-wow-delay="0.8s">
+                    <div class="p-4 bg-light rounded shadow-lg">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14560.136842834581!2d120.5998232658631!3d24.170532954174725!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34693e048d342aa9%3A0x2b6f18a6783fa3b!2z5Yue5YuV6YOo5Yue5YuV5Yqb55m85bGV572y5Lit5b2w5oqV5YiG572y77yI6Ie65Lit6IG36KiT5bGA77yJ!5e0!3m2!1szh-TW!2stw!4v1755671515813!5m2!1szh-TW!2stw"
+                            width="100%" height="438px" style="border:5px;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+
+                </div>
+
+                <div class="col-md-6 wow animate__animated animate__flipInY" data-wow-duration="1.5s"
+                    data-wow-delay="1s">
+                    <div class="p-4 mb-2 bg-light rounded shadow-lg">
+                        <h4 class="mb-3"><strong>聯絡我們</strong></h4>
+
+                        <p class="mb-4">
+                            📍 <strong>地址：</strong><br>
+                            台中市西區公益路100號（勞動部勞動力發展署中彰投分署）
+                        </p>
+
+                        <p class="mb-4">
+                            📞 <strong>電話：</strong><br>
+                            (04) 1234-5678
+                        </p>
+
+                        <p class="mb-4">
+                            📧 <strong>Email：</strong><br>
+                            info@yourwebsite.com
+                        </p>
+
+                        <p class="mb-4">
+                            💬 <strong>LINE ID：</strong><br>
+                            @eco-exchange
+                        </p>
+
+                        <p class="mb-4">
+                            🕒 <strong>服務時間：</strong><br>
+                            周一至周五 09:00 - 17:00（例假日休息）
+                        </p>
+
+                        <div class="mt-2">
+                            <a href="https://www.line.me/tw/" target="_blank" class="btn btn-success me-2">
+                                加入 LINE 好友
+                            </a>
+                            <a href="mailto:info@yourwebsite.com" class="btn btn-outline-primary">
+                                寄信給我們
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- s12(成功案例) -->
+    <section id="s12" style="background-image: url(images/bg04.jpg); background-attachment: fixed;" class="bg-cover">
+        <div style="background-color: rgba(0,0,0,0.6);">
+            <div class="title-line2 pt-4">
+                <h1 class="display-4 fw-900 text-light">成功案例</h1>
+            </div>
+            <div class="container py-4">
+                <div class="marquee">
+                    <div class="marquee-content">
+
+                        <!-- 成功案例卡片 -->
+                        <div class="case-card">
+                            <h5>📷 閒置相機 → Switch</h5>
+                            <p>小林用閒置相機換到心儀的 Switch，讓他的遊戲夢想成真。</p>
+                        </div>
+                        <div class="case-card">
+                            <h5>🪑 舊家具 → 廚具</h5>
+                            <p>阿美把不用的家具換成全新廚具，環保又實用。</p>
+                        </div>
+                        <div class="case-card">
+                            <h5>🎲 玩具 → 教具</h5>
+                            <p>小華把孩子長大的玩具換成教學模型，學生們受益無窮。</p>
+                        </div>
+                        <div class="case-card">
+                            <h5>👕 舊衣服 → 運動裝備</h5>
+                            <p>阿成把衣櫃清出來，換到全新球鞋，還省下一筆開銷。</p>
+                        </div>
+
+                        <!-- 🔁 複製一份，達成無縫效果 -->
+                        <div class="case-card">
+                            <h5>📷 閒置相機 → Switch</h5>
+                            <p>小林用閒置相機換到心儀的 Switch，讓他的遊戲夢想成真。</p>
+                        </div>
+                        <div class="case-card">
+                            <h5>🪑 舊家具 → 廚具</h5>
+                            <p>阿美把不用的家具換成全新廚具，環保又實用。</p>
+                        </div>
+                        <div class="case-card">
+                            <h5>🎲 玩具 → 教具</h5>
+                            <p>小華把孩子長大的玩具換成教學模型，學生們受益無窮。</p>
+                        </div>
+                        <div class="case-card">
+                            <h5>👕 舊衣服 → 運動裝備</h5>
+                            <p>阿成把衣櫃清出來，換到全新球鞋，還省下一筆開銷。</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- s13(底圖) -->
+    <section id="s13">
+        <div class="row gx-1">
+            <!-- 左邊 -->
+            <div class="col-md-6 py-5 bg-cover" style="background-image:url(images/kiwibird4.jpg);">
+                <div class="row justify-content-end ">
+                    <div class="col-md-6 pb-3 me-4 wow animate__animated animate__fadeInLeft" data-wow-duration="1s"
+                        data-wow-delay="0.7s"
+                        style="background-color: rgba(255, 255, 255, 0.85); color: #2c3e50; border-radius: 12px; padding:20px;">
+
+                        <small class="badge fs-5" style="background-color:#27ae60; color:white;">我們的理想</small>
+                        <div class="h3 fw-bold mt-2">分享故事，延續價值</div>
+                        <ul>
+                            <li> 我們不只是交換物品， </li>
+                            <li>而是分享一段故事，</li>
+                            <li>讓資源再次被珍惜。</li>
+                        </ul>
+                        <a href="#" class="btn btn-outline-success mx-auto d-block mt-3">加入我們</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右邊 -->
+            <div class="col-md-6 py-5 bg-cover ps-2" style="background-image:url(images/kiwibird5.jpg);">
+                <div class="row ">
+                    <div class="col-md-6 pb-3 ms-3  wow animate__animated animate__fadeInRight" data-wow-duration="1s"
+                        data-wow-delay="0.7s"
+                        style="background-color: rgba(255, 255, 255, 0.85); color: #2c3e50; border-radius: 12px; padding:20px;">
+
+                        <small class="badge fs-5" style="background-color:#f39c12; color:white;">加入我們</small>
+                        <div class="h3 fw-bold mt-2">徵求助理工程師數名</div>
+                        <ul>
+                            <li>1.前端工程師 10位</li>
+                            <li>2.後端工程師 10位</li>
+                            <li>3.雲端工程師 5位</li>
+                        </ul>
+                        <a href="#" class="btn btn-warning mx-auto d-block mt-3">聯絡我們</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- s14(引導) -->
+    <section id="s14" style="background-image: url(images/bg01.jpg);background-attachment: fixed;"
+        class="bg-cover text-center text-light py-5">
+        <div style="background-color: rgba(0,0,0,0.6);" class="p-5 rounded-4">
+            <h1 class="fw-bold mb-4">還在等什麼？</h1>
+            <p class="fs-4 mb-4 ">快來加入焦阿平台，開始你的二手交換之旅！</p>
+            <button class="btn btn-outline-warning btn-lg" data-bs-toggle="modal" data-bs-target="#registerModal">
+                立即註冊
+            </button>
+            <a href="http://192.168.10.79/" class="btn btn-light btn-lg">了解更多</a>
+        </div>
+    </section>
+
+    <!-- s15(本站底部連結) -->
+    <section id="s15" class="bg-dark text-light py-3">
+        <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+
+            <!-- 左邊 -->
+            <div class="mb-2 mb-md-0">
+                <a class="text-decoration-none text-light me-3" href="#">網站使用須知</a>
+                <a class="text-decoration-none text-light me-3" href="#">隱私權聲明</a>
+                <a class="text-decoration-none text-light me-3" href="">聯絡我們</a>
+            </div>
+
+            <!-- 中間 -->
+            <div class="mb-2 mb-md-0 small">
+                © 2025 Kiwi Bird. 阿文一手打造.
+            </div>
+
+            <!-- 右邊 -->
+            <div>
+                <a href="https://www.facebook.com/?locale=zh_TW" target="_blank" class="text-light me-3"><i
+                        class="fa-brands fa-facebook fa-lg"></i></a>
+                <a href="https://www.instagram.com/" target="_blank" class="text-light me-3"><i
+                        class="fa-brands fa-instagram fa-lg"></i></a>
+                <a href="https://www.line.me/tw/" target="_blank" class="text-light me-3"><i
+                        class="fa-brands fa-line fa-lg"></i></a>
+                <a href="https://x.com/?lang=zh-Hant" target="_blank" class="text-light"><i
+                        class="fa-brands fa-x-twitter fa-lg"></i></a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 回到最上方按鈕 -->
+    <button id="backToTop" class="back-to-top">TOP⬆</button>
+</body>
+
+<script src="js/jquery-3.7.1.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.2/dist/sweetalert2.all.min.js"></script>
+<script src="https://unpkg.com/counterup2@2.0.2/dist/index.js">	</script>
+<script src="js/wow.min.js"></script>
+<script src="js/auth.js"></script>
+<script>
+    //註冊
+    let flag_switch01 = false;
+    let flag_username = false;
+    let flag_password = false;
+    let flag_confirmMsg = false;
+    let flag_email = false;
+    //登入
+    let flag_login_username = false;
+    let flag_login_password = false;
+
+    $(function () {
+        new WOW().init();
+
+        /* counter up 數字跑步功能 */
+        const counterUp = window.counterUp.default
+        /* 單一跑數字效果 */
+        const callback = entries => {
+            entries.forEach(entry => {
+                const el = entry.target
+                if (entry.isIntersecting && !el.classList.contains('is-visible')) {
+                    counterUp(el, {
+                        duration: 2000,
+                        dalay: 16
+                    })
+
+                    el.classList.add('is-visible')
+                }
+            })
+        }
+        const IO = new IntersectionObserver(callback, { threshold: 1 })
+        /* 打包給四個數字運作 */
+        const el = document.querySelector('.counter')
+        IO.observe(el)
+        const el1 = document.querySelector('.counter01')
+        IO.observe(el1)
+        const el2 = document.querySelector('.counter02')
+        IO.observe(el2)
+        const el3 = document.querySelector('.counter03')
+        IO.observe(el3)
+
+        //註冊帳號監聽驗證
+        $("#username").on("input", function () {
+            let val = $(this).val();
+            /*  法一
+                if ($(this).val().length > 0 && $(this).val().length < 11) {
+                    const rules = /^[^@!$!*?&]+$/; // 不允許特殊符號
+
+                    if (rules.test($(this).val())) {
+                        $(this).removeClass("is-invalid");
+                        $(this).addClass("is-valid");
+                    } else {
+                        $(this).removeClass("is-valid");
+                        $(this).addClass("is-invalid");
+                    }
+
+                } else {
+                    $(this).removeClass("is-valid");
+                    $(this).addClass("is-invalid");
+                }
+             */
+
+            /* 法二 */
+            const getuser = /^[a-zA-Z0-9]{1,10}$/; //定義 1~10 字，只能英數
+            if (getuser.test($(this).val())) {
+
+                //傳遞至後端API進行帳號驗證是否已經存在
+                //轉JSON格式
+                let jsonDATA = {};
+                jsonDATA["username"] = $("#username").val();
+                console.log(JSON.stringify(jsonDATA));
+
+                //傳遞至後端API 20250827-member-API.php?action=registeruser
+                $.ajax({
+                    type: "POST",
+                    url: "./20250827-member-API.php?action=checkuniusername",
+                    data: JSON.stringify(jsonDATA),
+                    dataType: "json",
+                    success: showdata_checkuniusername,
+                    error: function () {
+                        Swal.fire({
+                            title: "連線錯誤",
+                            icon: "error - 20250827-member-API.php?action=checkuniusername",
+                            draggable: true
+                        });
+                    }
+                });
+            } else {
+                $(this).removeClass("is-valid").addClass("is-invalid");
+                $("#userMsg_invalid").text("帳號必須是 1~10 位英數字，不可含特殊符號");
+                flag_username = false;
+            }
+        });
+
+        //註冊密碼監聽驗證
+        $("#password").on("input", function () {
+            // 密碼變動時，先把確認密碼的樣式清空，等使用者再輸入確認密碼時重新檢查
+            $("#confirmPassword").removeClass("is-valid is-invalid");
+            $("#confirmMsg").text("");
+
+            const getpassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+            if (getpassword.test($(this).val())) {
+                $(this).removeClass("is-invalid").addClass("is-valid");
+                $("#userPwd").text("");
+                flag_password = true;
+            } else {
+                $(this).removeClass("is-valid").addClass("is-invalid");
+                $("#userPwd").text("密碼不符合規定");
+                flag_password = false;
+            }
+        });
+
+        // 確認密碼監聽驗證
+        $("#confirmPassword").on("input", function () {
+            let confirmVal = $(this).val();
+            let passwordVal = $("#password").val();//監聽密碼
+            /* 條件判斷相等也不小於0 */
+            if (confirmVal === passwordVal && confirmVal.length > 0) {
+                $(this).removeClass("is-invalid").addClass("is-valid");
+                $("#confirmMsg").text("");  // 清除錯誤提示
+                flag_confirmMsg = true;
+            } else {
+
+                $(this).removeClass("is-valid").addClass("is-invalid");
+                $("#confirmMsg").text("密碼不一致，請重新確認");
+                flag_confirmMsg = false;
+            }
+        });
+
+        //註冊email信箱監聽驗證
+        $("#email").on("input", function () {
+            let val = $(this).val();
+
+            const getemail = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+
+            if (getemail.test(val)) {
+                $(this).removeClass("is-invalid").addClass("is-valid");
+                $("#useremail").text("");//預設用
+                flag_email = true;
+            } else {
+                $(this).removeClass("is-valid").addClass("is-invalid");
+                $("#useremail").text("信箱不符合規定");
+                flag_email = false;
+            }
+        });
+
+        //條款同意監聽驗證
+        $("#switch01").change(function () {
+            console.log($(this).is(':checked'));
+            if ($(this).is(':checked')) {
+                $(this).next().text("同意");
+                $(this).removeClass("is-invalid");
+                flag_switch01 = true;
+            } else {
+                $(this).next().text("不同意也得同意");
+                $(this).addClass("is-invalid");
+                flag_switch01 = false;
+            }
+        });
+
+        //註冊行為
+        $("#registerModal_ok_btn").click(function () {
+            if (flag_username && flag_password && flag_confirmMsg && flag_email && flag_switch01) {
+                //轉JSON格式
+                let jsonDATA = {};
+                jsonDATA["username"] = $("#username").val();
+                jsonDATA["password"] = $("#password").val();
+                jsonDATA["email"] = $("#email").val();
+                console.log(JSON.stringify(jsonDATA));
+
+                //傳遞至後端API 20250827-member-API.php?action=registeruser
+                $.ajax({
+                    type: "POST",
+                    url: "./20250827-member-API.php?action=registeruser",
+                    data: JSON.stringify(jsonDATA),
+                    dataType: "json",
+                    success: showdata_registeruser,
+                    error: function () {
+                        Swal.fire({
+                            title: "連線錯誤",
+                            icon: "error - 20250827-member-API.php?action=registeruser",
+                            draggable: true
+                        });
+                    }
+                });
+            } else {
+                Swal.fire({
+                    title: "請修正欄位",
+                    icon: "error",
+                    draggable: true
+                });
+            }
+        });
+
+        //登入介面帳號監聽驗證
+        $("#loginModal_username").bind("input propertychange", function () {
+            if ($(this).val().length > 0 && $(this).val().length < 10) {
+                //符合規定
+                $(this).removeClass("is-invalid");
+                $(this).addClass("is-valid");
+                flag_login_username = true;
+            } else {
+                //不符合規定
+                $(this).removeClass("is-valid");
+                $(this).addClass("is-invalid");
+                flag_login_username = false;
+            }
+        });
+
+        //登入介面密碼監聽驗證
+        $("#loginModal_password").bind("input propertychange", function () {
+            if ($(this).val().length > 0 && $(this).val().length < 16) {
+                //符合規定
+                $(this).removeClass("is-invalid");
+                $(this).addClass("is-valid");
+                flag_login_password = true;
+            } else {
+                //不符合規定
+                $(this).removeClass("is-valid");
+                $(this).addClass("is-invalid");
+                flag_login_password = false;
+            }
+        });
+
+        //loginModal_ok_btn登入按鈕監聽
+        $("#loginModal_ok_btn").click(function () {
+            if (flag_login_username && flag_login_password) {
+                //轉JSON格式
+                let jsonDATA = {};
+                jsonDATA["username"] = $("#loginModal_username").val();
+                jsonDATA["password"] = $("#loginModal_password").val();
+                console.log(JSON.stringify(jsonDATA));
+
+                //傳遞至後端API 20250827-member-API.php?action=loginuser
+                $.ajax({
+                    type: "POST",
+                    url: "20250827-member-API.php?action=loginuser",
+                    data: JSON.stringify(jsonDATA),
+                    dataType: "json",
+                    success: showdata_loginuser,
+                    error: function () {
+                        Swal.fire({
+                            title: "登入連線錯誤",
+                            icon: "error",
+                            draggable: true
+                        });
+                    }
+                });
+            } else {
+                Swal.fire({
+                    title: "請修正欄位",
+                    icon: "error",
+                    draggable: true
+                });
+            }
+        });
+
+
+    });
+
+    /* 登入後的function */
+    function showdata_loginuser(data) {
+        console.log(data);
+        if (data.state) {
+            Swal.fire({
+                title: data.message,
+                showDenyButton: false,
+                showCancelButton: false,
+                confirmButtonText: "確認",
+                icon: "success",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    //隱藏登入按鈕
+                    $("#loginModal").modal("hide");
+                    // 寫入 Cookie，7天有效
+                    setCookie("Uid01", data.data.Uid01, 7);
+                    // 設定 localStorage（最重要）
+                    localStorage.setItem("role", data.data.role);
+                    // 呼叫 auth.js 的 renderLoginUI()
+                    renderLoginUI(data.data);
+                }
+            });
+        } else {
+            Swal.fire({
+                title: data.message,
+                icon: "error",
+                draggable: true
+            });
+        }
+    }
+
+    /* 註冊後的function */
+    function showdata_registeruser(data) {
+        console.log(data);
+        if (data.state) {
+            // 註冊成功
+            Swal.fire({
+                icon: 'success',
+                title: '註冊成功',
+                text: data.message
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    location.href = "20250812-index.html";
+                }
+            });
+        } else {
+            // 註冊失敗
+            Swal.fire({
+                icon: 'error',
+                title: '註冊失敗',
+                text: data.message
+            });
+        }
+    }
+
+    /* 檢驗帳號是否存在 */
+    function showdata_checkuniusername(data) {
+        console.log(data);
+        if (data.state) {
+            //帳號不存在可以使用
+            $("#username").removeClass("is-invalid");
+            $("#username").addClass("is-valid");
+            $("#userMsg_valid").text("帳號不存在可以使用");
+            flag_username = true;
+        } else {
+            //帳號存在不可以使用
+            $("#username").removeClass("is-valid");
+            $("#username").addClass("is-invalid");
+            $("#userMsg_invalid").text("帳號已存在不能使用");
+            flag_username = false;
+        }
+    }
+
+
+
+
+    // 監聽捲動，決定按鈕顯示或隱藏
+    window.onscroll = function () {
+        let btn = document.getElementById("backToTop");
+        if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+            btn.style.display = "block";
+        } else {
+            btn.style.display = "none";
+        }
+    };
+
+    // 點擊回頂部
+    document.getElementById("backToTop").addEventListener("click", function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+
+
+
+
+</script>
+
+</html>
