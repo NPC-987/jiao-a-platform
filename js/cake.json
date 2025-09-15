@@ -1,0 +1,126 @@
+{
+  "breads": [
+    {
+      "product": "經典可頌",
+      "price": 65,
+      "descript": "層層酥脆、奶油香濃，早晨必備的法式經典。",
+      "pimg": "images/cake01.jpg"
+    },
+    {
+      "product": "手工生吐司",
+      "price": 120,
+      "descript": "鬆軟綿密、入口即化，每一片都是職人用心。",
+      "pimg": "images/milk_toast.jpg"
+    },
+    {
+      "product": "抹茶紅豆吐司",
+      "price": 110,
+      "descript": "日本宇治抹茶融合蜜紅豆，口感層次豐富。",
+      "pimg": "images/matcha_toast.jpg"
+    },
+    {
+      "product": "香蒜法國麵包",
+      "price": 55,
+      "descript": "外酥內Q，香蒜奶油滲透每一絲氣孔。",
+      "pimg": "images/garlic_baguette.jpg"
+    },
+    {
+      "product": "巧克力可頌",
+      "price": 70,
+      "descript": "經典可頌內藏濃情巧克力，早餐升級版。",
+      "pimg": "images/choco_croissant.jpg"
+    },
+    {
+      "product": "起司軟法",
+      "price": 60,
+      "descript": "鹹香起司與法式軟麵完美融合。",
+      "pimg": "images/cheese_bread.jpg"
+    },
+    {
+      "product": "裸麥核桃麵包",
+      "price": 85,
+      "descript": "富含纖維與香氣，健康又有咬勁。",
+      "pimg": "images/rye_walnut.jpg"
+    },
+    {
+      "product": "提拉米蘇麵包",
+      "price": 95,
+      "descript": "咖啡香與可可粉交錯，每一口都是義式浪漫。",
+      "pimg": "images/tiramisu_bread.jpg"
+    },
+    {
+      "product": "焗烤馬鈴薯麵包",
+      "price": 90,
+      "descript": "馬鈴薯內餡與起司交融，飽足又療癒。",
+      "pimg": "images/baked_potato_bread.jpg"
+    },
+    {
+      "product": "鹽可頌",
+      "price": 50,
+      "descript": "低調鹽香，喚醒小麥與奶油的真實風味。",
+      "pimg": "images/salt_croissant.jpg"
+    }
+  ],
+  "desserts": [
+    {
+      "product": "莓果巧克力塔",
+      "price": 150,
+      "descript": "酸甜莓果搭配濃郁巧克力，像戀愛一樣濃烈。",
+      "pimg": "images/berry_choco_tart.jpg"
+    },
+    {
+      "product": "海鹽焦糖布朗尼",
+      "price": 90,
+      "descript": "外酥內濕，焦糖與苦甜巧克力的完美對話。",
+      "pimg": "images/salted_caramel_brownie.jpg"
+    },
+    {
+      "product": "經典黑巧克力",
+      "price": 80,
+      "descript": "70%可可含量，回甘而不膩，適合成熟的你。",
+      "pimg": "images/dark_chocolate.jpg"
+    },
+    {
+      "product": "肉桂捲",
+      "price": 75,
+      "descript": "肉桂香氣濃郁，糖霜包裹每一口的溫柔。",
+      "pimg": "images/cinnamon_roll.jpg"
+    },
+    {
+      "product": "榛果牛奶巧克力",
+      "price": 95,
+      "descript": "滑順牛奶巧克力包裹整顆榛果，酥脆驚喜。",
+      "pimg": "images/hazelnut_milk_choco.jpg"
+    },
+    {
+      "product": "草莓生乳捲",
+      "price": 130,
+      "descript": "綿密奶油捲中藏著整顆新鮮草莓，甜蜜加倍。",
+      "pimg": "images/strawberry_roll.jpg"
+    },
+    {
+      "product": "白巧克力松露",
+      "price": 100,
+      "descript": "奶香白巧包覆焦糖餡，綿滑細緻如夢。",
+      "pimg": "images/white_choco_truffle.jpg"
+    },
+    {
+      "product": "70%苦甜巧克力磚",
+      "price": 85,
+      "descript": "只給懂得享受可可純粹的人。",
+      "pimg": "images/70percent_dark.jpg"
+    },
+    {
+      "product": "酒漬櫻桃黑巧克力",
+      "price": 120,
+      "descript": "微醺的夜晚專屬，酸甜與濃烈在舌尖共舞。",
+      "pimg": "images/cherry_dark.jpg"
+    },
+    {
+      "product": "巧克力豆貝果",
+      "price": 70,
+      "descript": "Q彈紮實的貝果藏著顆顆甜蜜驚喜。",
+      "pimg": "images/choco_bagel.jpg"
+    }
+  ]
+}

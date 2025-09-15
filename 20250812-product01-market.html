@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>賣場列表</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/my.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+    <style>
+        #s01 i {
+            animation-duration: 2s
+        }
+
+        #s01 span {
+            white-space: nowrap;
+            /* 避免斷行 */
+        }
+    </style>
+
+</head>
+
+<body class="bg-secondary">
+    <!-- 防詐提醒條 -->
+    <section id="s01" class="bg-danger text-light">
+        <div class="container d-flex justify-content-center align-items-center py-2">
+            <i class="fa-solid fa-triangle-exclamation me-2 animate__animated animate__flash animate__infinite"></i>
+            <span class="fw-bold fs-5">防詐提醒：</span>
+            <span class="ms-1 fs-5">所有交易請透過平台支付系統完成，請勿私下轉帳！</span>
+        </div>
+    </section>
+
+    <!-- 選單 -->
+    <section class="s02 bg-dark">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="http://localhost/project/20250812-index.html">
+                        <i class="fa-solid fa-kiwi-bird btn btn-outline-success fa-2x me-2"></i>
+                        焦阿的二手平台
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="./20250812-index.html">
+                                    <i class="fa-solid fa-house text-primary me-2"></i>首頁
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="20250812-product01-market.html">
+                                    <i class="fa-solid fa-shop text-info me-2"></i>賣場列表
+                                </a>
+                            </li>
+                            <li id="productadd" class="nav-item d-none">
+                                <a class="nav-link" href="20250812-product01-add.html">
+                                    <i class="fa-solid fa-bag-shopping text-primary me-2"></i>新增產品
+                                </a>
+                            </li>
+                            <li id="productlist" class="nav-item d-none">
+                                <a class="nav-link" href="20250812-product01-list.html">
+                                    <i class=" fa-solid fa-truck text-info me-2"></i>產品列表
+                                </a>
+                            </li>
+                        </ul>
+                        <div>
+                            <!-- 註冊/登入按鈕（未登入時顯示）未引入功能先引導到首頁 -->
+                            <a href="http://localhost/project/20250812-index.html">
+                                <button class="btn btn-outline-warning me-2" data-bs-toggle="modal"
+                                    data-bs-target="#registerModal" id="s02_register_btn">註冊</button>
+                            </a>
+                            <a href="./20250812-index.html"><!-- 注意本地跟虛擬機位置 -->
+                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#loginModal"
+                                    id="s02_login_btn">登入</button>
+                            </a>
+                            <!-- 歡迎詞（登入後顯示） -->
+                            <span class="text-success fs-3 me-3 d-none" id="login_showmessage">
+                                歡迎 <span class="text-warning fs-3 fw-900" id="login_showmessage2">XXX</span>
+                            </span>
+
+                            <!-- 控制台（管理員才顯示） -->
+                            <a href="20250902-control.html" class="fs-5 fw-900 btn btn-info d-none"
+                                id="s02_control_btn">控制台</a>
+
+                            <!-- 登出（登入後顯示） -->
+                            <a href="20250812-index.html" class="fs-5 fw-900 btn btn-danger d-none"
+                                id="logout_btn">登出</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </section>
+
+    <!-- 預設框架 -->
+    <div class="container">
+        <div class="row" id="mydata">
+            <div class="col-md-3 mt-3">
+                <div class="card shadow-lg">
+                    <img src="images/coffee01.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title fs-2 fw-900">產品名稱</h5>
+                        <p class="card-text">價格: <span class="fs-3 fw-900 text-danger">199</span>元</p>
+                        <p class="card-text">狀態: <span class="fs-3 fw-900 text-success">正常</span></p>
+                        <p class="card-text">說明: <span class="fs-3 fw-900 text-success">阿布拉布拉布拉</span></p>
+                        <div class="text-center">
+                            <a href="#" class="btn btn-warning">購買</a>
+                            <a href="#" class="btn btn-primary">交換</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 點選購買彈出的視窗  -->
+    <div class="modal fade" id="buyModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header text-bg-primary">
+                    <h1 class="modal-title fs-5">
+                        購買介面
+                    </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="buy_seller_id">
+                    <input type="hidden" id="buy_product_id">
+
+
+                    <div class="mb-3">
+                        <label class="form-label">運送方式</label>
+                        <select id="buy_ship" class="form-select">
+                            <option value="meet">面交</option>
+                            <option value="ship">寄送</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">備註</label>
+                        <textarea id="buy_note" class="form-control" rows="5"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
+                    <button class="btn btn-primary" id="buy_submit">送出訂單</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 點選交換彈出的視窗 -->
+    <div class="modal fade" id="exchangeModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header text-bg-warning">
+                    <h1 class="modal-title fs-5">交換介面</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="ex_product_id">
+                    <input type="hidden" id="ex_seller_id">
+
+                    <div class="mb-3">
+                        <label class="form-label">我提供的品項<span class="fw-900 text-danger">（2~8字）</span></label>
+                        <input type="text" class="form-control" id="ex_offer_title" placeholder="例如：二手安全帽 M 號">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">我的物品描述<span class="fw-900 text-danger">(上限100字)</span></label>
+                        <textarea class="form-control" id="ex_offer_desc" rows="3" maxlength="100"
+                            placeholder="狀況、數量、瑕疵..."></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">物品圖片</label>
+                        <input type="file" class="form-control" id="ex_offer_img" accept="image/*">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
+                    <button class="btn btn-warning" id="ex_submit">送出交換提案</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 跳出商品詳情Modal介面  -->
+    <div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header text-bg-secondary ">
+                    <h1 class="modal-title fs-5">
+                        <span id="detail_title">商品名稱</span>
+                        <small class=" fs-5 text-white">（<span id="detail_price">0</span>元）</small>
+                    </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <input type="hidden" id="detail_pid">
+                    <div class="row g-3">
+                        <div class="col-md-5">
+                            <img id="detail_img" src="" alt="product image" class="img-fluid rounded border">
+                        </div>
+                        <div class="col-md-7 ">
+                            <div class="mb-3">
+                                <div class="h5 fw-700 mb-2 text-dark">物品狀況</div>
+                                <div class="text-danger">
+                                    <span></span> <i
+                                        class="fa-solid fa-circle-exclamation me-2  mt-1 mb-2 text-danger "></i>此內容皆由賣家填寫</span>
+                                </div>
+                                <!-- 彈跳介面物品狀況 -->
+                                <div class="form-check mb-1">
+                                    <input type="radio" class="form-check-input" name="detail_condition" value="全新"
+                                        id="cond_new" disabled>
+                                    <label for="cond_new" class="form-check-label">全新</label>
+                                </div>
+                                <div class="form-check mb-1">
+                                    <input type="radio" class="form-check-input" name="detail_condition" value="八成新"
+                                        id="cond_80" disabled>
+                                    <label for="cond_80" class="form-check-label">八成新</label>
+                                </div>
+                                <div class="form-check mb-1">
+                                    <input type="radio" class="form-check-input" name="detail_condition" value="堪用"
+                                        id="cond_50" disabled>
+                                    <label for="cond_0" class="form-check-label">堪用</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="radio" class="form-check-input" name="detail_condition" value="其他"
+                                        id="cond_used" disabled>
+                                    <label for="cond_used" class="form-check-label">其他</label>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">賣方說明</label>
+                                <textarea id="detail_pnote" class="form-control" rows="3"
+                                    placeholder="此區為賣方簡短描述、配件、瑕疵說明…" disabled></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 看詳情下方的按鈕 -->
+                <div class="modal-footer">
+                    <button class="btn btn-outline-secondary" data-bs-dismiss="modal">關閉</button>
+                    <button class="btn btn-warning" id="detail_exchange_btn">
+                        <i class="fa-solid fa-arrows-rotate me-1"></i> 交換
+                    </button>
+                    <button class="btn btn-primary" id="detail_buy_btn">
+                        <i class="fa-solid fa-cart-shopping me-1"></i> 購買
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="./js/auth.js"></script>
+
+    <script>
+
+        console.log("使用者權限:", localStorage.getItem("role"));
+        console.log("使用者id:", localStorage.getItem("uid"));
+        localStorage.getItem("uid")
+
+
+        $(function () {
+            // 統一取得角色權限的方法
+            function getRole() {
+                const raw = localStorage.getItem("role");
+                if (raw === null)
+                    return -1;   // 沒有登入 → 訪客
+
+                const parsed = parseInt(raw);
+                return isNaN(parsed) ? -1 : parsed;
+            }
+
+            $.ajax({
+                type: "GET",
+                url: "20250812-product01-contron-API.php?action=getalldata",
+                dataType: "json",
+                success: showdata_getalldata,
+                error: function () {
+                    Swal.fire({
+                        title: "讀取商品失敗 - 20250812-product01-contron-API.php?action=getalldata",
+                        icon: "error",
+                        confirmButtonText: "確認",
+                        draggable: true
+                    });
+                }
+            });
+
+
+            // 打開購買 Modal
+            $(document).on("click", ".js-buy", function () {
+                const role = getRole();
+
+                if (role > -1) {
+                    // 只有會員能打開購買視窗
+                    const pid = $(this).data("id");
+                    const seller = $(this).data("seller");
+
+                    $("#buyModal").modal("show");
+                    $("#buy_product_id").val(pid);
+                    $("#buy_seller_id").val(seller);
+                } else {
+                    Swal.fire({
+                        title: "權限不足",
+                        text: "需註冊會員才能使用，請先登入或註冊！",
+                        icon: "warning",
+                        confirmButtonText: "了解"
+                    });
+                }
+            });
+
+            // 打開交換 Modal
+            $(document).on("click", ".js-exchange", function () {
+                const role = getRole();
+
+                if (role === -1) {
+                    // 訪客禁止
+                    Swal.fire({
+                        title: "權限不足",
+                        text: "需註冊後的高級會員才能使用，請先登入或註冊！",
+                        icon: "warning",
+                        confirmButtonText: "了解"
+                    });
+                    return;
+                }
+
+                if (role === 0) {
+                    // 一般會員禁止交換
+                    Swal.fire({
+                        title: "權限不足",
+                        text: "僅限高級會員使用，請升級會員等級。",
+                        icon: "warning",
+                        confirmButtonText: "了解"
+                    });
+                    return;
+                }
+
+                if (role === 1 || role === 9) {
+                    // 高級會員 & 管理員可使用
+                    $("#exchangeModal").modal("show");
+                }
+            });
+
+
+            // 看詳情按鈕 打開「商品詳情」Modal 並帶入資料
+            $(document).on("click", ".js-detail", function () {
+                const d = $(this).data();// 先取 data-* 帶入 d
+
+                const cover = (d.img && d.img.trim() !== '') ? d.img : 'images/nofind.jpg';
+                //trim()是去掉前後空白
+
+                const want = (d.cond || "八成新").toString();
+
+                // 帶入資料
+                $("#detail_pid").val(d.id);
+                $("#detail_pid").attr("data-seller", d.seller);
+                $("#detail_title").text(d.title);
+                $("#detail_price").text(d.price);
+                $("#detail_img").attr("src", cover)
+                    .attr("onerror", "this.onerror=null;this.src='images/nofind.jpg'");
+                $("#detail_pnote").val(d.pnote || "無說明");
+
+
+                // radio 全部 disabled，但預選顯示
+                const $radios = $("input[name='detail_condition']");
+                $radios.prop("checked", false);
+                if ($radios.filter(`[value="${want}"]`).length) {
+                    $radios.filter(`[value="${want}"]`).prop("checked", true);
+                } else {
+                    // 找不到對應值時給一個預設（這裡用「八成新」）
+                    $radios.filter(`[value="八成新"]`).prop("checked", true);
+                }
+
+                new bootstrap.Modal(document.getElementById('productModal')).show();
+            });
+
+            // 送出「購買」請求
+            $(document).on("click", "#buy_submit", function () {
+
+                const payload = {
+                    buyer_id: localStorage.getItem("uid"), // 登入時存的
+                    seller_id: $("#buy_seller_id").val(),      // 從商品卡片帶出
+                    product_id: $("#buy_product_id").val(),
+                    shipping_method: $("#buy_ship").val(),
+                    note: $("#buy_note").val().trim(),
+                };
+                console.log("送出 payload:", payload);//除錯
+
+                // 呼叫 API
+                $.ajax({
+                    type: "POST",
+                    url: "./20250908transactionAPI.php?action=createpurchasetransaction",
+                    data: JSON.stringify(payload),
+                    contentType: "application/json",
+                    dataType: "json",
+                    success: function (res) {
+                        console.log("API回應:", res);
+                        if (res.state) {
+                            Swal.fire({
+                                title: "購買成功",
+                                text: "訂單編號：" + res.data.transaction_id,
+                                icon: "success"
+                            });
+
+                            $("#buy_note").val('');//清空備註欄位
+                            //去抓 id="buyModal" 的 modal 控制器
+                            // 如果有，就存到變數 buyModal，讓我可以在 JS 裡用 buyModal.hide() 關閉它
+                            const buyModal = bootstrap.Modal.getInstance(document.getElementById('buyModal'));
+                            buyModal && buyModal.hide();//關掉購買介面
+                        } else {
+                            Swal.fire({ title: "錯誤", text: res.message, icon: "error" });
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Ajax錯誤:", status, error, xhr.responseText);
+                        Swal.fire({ 
+                            title: "連線失敗", 
+                            text: error, 
+                            icon: "error" 
+                        });
+                    }
+                });
+            });
+
+            // 送出「交換」請求
+            $(document).on("click", "#ex_submit", function () {
+                const formData = new FormData();
+                formData.append("buyer_id", localStorage.getItem("uid")); // 登入會員
+                formData.append("seller_id", $("#ex_seller_id").val());
+                formData.append("product_id", $("#ex_product_id").val());
+                formData.append("type", "exchange");
+                formData.append("exchange_title", $("#ex_offer_title").val().trim());
+                formData.append("exchange_desc", $("#ex_offer_desc").val().trim());
+
+                const file = $("#ex_offer_img")[0].files[0];
+                if (file) {
+                    formData.append("exchange_img", file);
+                }
+
+                // 簡單驗證
+                if (!$("#ex_offer_title").val().trim()) {
+                    Swal.fire({
+                        title: "請輸入品項名稱",
+                        icon: "warning"
+                    });
+                    return;
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: "./20250908transactionAPI.php?action=createxchangetransaction",
+                    data: formData,
+                    processData: false, // 不轉換資料
+                    contentType: false, // 不要自動加 Content-Type
+                    success: function (res) {
+                        if (res.state) {
+                            Swal.fire({
+                                title: "交換提案成功",
+                                text: "交易編號：" + res.data.transaction_id, icon: "success"
+                            }
+                            );
+                            //清空
+                            $("#ex_offer_title,#ex_offer_desc,#ex_offer_img").val('');
+                            //關閉視窗
+                            const exModal = bootstrap.Modal.getInstance(document.getElementById('exchangeModal'));
+                            exModal && exModal.hide();
+                        } else {
+                            Swal.fire({
+                                title: "錯誤",
+                                text: res.message,
+                                icon: "error"
+                            });
+                        }
+                    },
+                    error: function () {
+                        Swal.fire({
+                            title: "連線失敗",
+                            icon: "error"
+                        });
+                    }
+                });
+            });
+
+            // 從詳情 Modal → 帶值到購買 Modal
+            $(document).on("click", "#detail_buy_btn", function () {
+                const pid = $("#detail_pid").val();
+                const seller = $("#detail_pid").data("seller");
+                const title = $("#detail_title").text();
+                const price = $("#detail_price").text();
+
+                $("#buy_product_id").val(pid);
+                $("#buy_seller_id").val(seller);
+                $("#buy_product_title").text(title);
+                $("#buy_product_price").text(price);
+
+                // 開啟購買視窗（可選：先關詳情）
+                const detail = bootstrap.Modal.getInstance(document.getElementById('productModal'));
+                detail && detail.hide();
+                new bootstrap.Modal(document.getElementById('buyModal')).show();
+            });
+
+            // 從詳情 Modal → 帶值到交換 Modal
+            $(document).on("click", "#detail_exchange_btn", function () {
+                const pid = $("#detail_pid").val();
+                const title = $("#detail_title").text();
+
+                $("#ex_product_id").val(pid);
+                $("#ex_product_title").text(title);
+
+                const detail = bootstrap.Modal.getInstance(document.getElementById('productModal'));
+                detail && detail.hide();
+                new bootstrap.Modal(document.getElementById('exchangeModal')).show();
+            });
+
+            function showdata_getalldata(data) {
+                console.log(data);
+                $("#mydata").empty();
+                data.data.forEach(function (item) {
+
+                    const safeNote = (item.Pnote || '').replace(/"/g, '&quot;');
+                    const strHTML = `
+                    <div class="col-sm-6 col-md-4 col-lg-3 mt-3">
+                        <div class="card shadow-lg h-100 ">
+                        <img src="${item.Pimg}" class="card-img-top " alt="${item.Pname}">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title fs-2 fw-900 mb-1">${item.Pname}</h5>
+                            <p class="card-text mb-2 fw-900 fs-4">價格：
+                                <span class=" fs-3 fw-900 text-danger ">${item.Price}</span> 元
+                            </p>
+                            <p class="card-text fs-3 fw-900  mb-3">狀態：
+                                <span class=" fs-3 fw-900 text-success ">${item.Pice ?? '—'}</span>
+                            </p>
+                            <p class="card-text fw-500 text-muted small mb-3">說明：${item.Pnote ?? '—'}
+                            </p>
+                            <div class="mt-auto d-grid gap-2">
+                            <button class="btn btn-primary js-buy"
+                                    data-id="${item.ID}" data-title="${item.Pname}" data-price="${item.Price}"data-seller="${item.seller_id}" >
+                                <i class="fa-solid fa-cart-shopping me-2"></i> 購買
+                            </button>
+
+                            <button class="btn btn-warning js-exchange"
+                                    data-id="${item.ID}" data-title="${item.Pname}" data-price="${item.Price}"data-seller="${item.seller_id}">
+                                <i class="fa-solid fa-arrows-rotate me-1"></i>交換
+                            </button>
+
+                            <button class="btn btn-outline-secondary js-detail"
+                                    data-id="${item.ID}"
+                                    data-title="${item.Pname}"
+                                    data-price="${item.Price}"
+                                    data-img="${item.Pimg}"
+                                    data-cond="${item.Pice}"
+                                    data-pnote="${item.Pnote ?? '_'}">
+                                <i class="fa-solid fa-up-right-from-square me-1"></i>看詳情
+                            </button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>`;
+                    $("#mydata").append(strHTML);
+                });
+            }
+
+
+
+        });
+
+
+
+    </script>
+</body>
+
+</html>
