@@ -1,5 +1,6 @@
 焦阿二手平台
 👉 [點我查看首頁](https://npc-987.github.io/jiao-a-platform/)
+---
 一個以 **Laravel / PHP / MySQL / Bootstrap / jQuery** 打造的二手物品交換平台，提供會員註冊、商品上架、商品瀏覽與交易功能。  
 目標是讓使用者能方便地進行 **二手物品的分享、交換與買賣**。  
 
