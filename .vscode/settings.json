@@ -1,3 +1,0 @@
-{//避免跟其他服務衝突預設是5500
-    "liveServer.settings.port": 5501
-}
