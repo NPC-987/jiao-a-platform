@@ -36,10 +36,10 @@
 
     <!-- 選單 -->
     <section class="s02 bg-dark">
-        <div class="container">
+         <div class="container">
             <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="http://localhost/project/20250812-index.html">
+                    <a class="navbar-brand" href="http://localhost/project/index.html">
                         <i class="fa-solid fa-kiwi-bird btn btn-outline-success fa-2x me-2"></i>
                         焦阿的二手平台
                     </a>
@@ -51,8 +51,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page"
-                                    href="index.html">
+                                <a class="nav-link active" aria-current="page" href="./index.html">
                                     <i class="fa-solid fa-house text-primary me-2"></i>首頁
                                 </a>
                             </li>
@@ -66,7 +65,7 @@
                                     <i class="fa-solid fa-bag-shopping text-primary me-2"></i>新增產品
                                 </a>
                             </li>
-                            <li id="productlist" class="nav-item d-none">
+                            <li id="productlist" class="nav-item d-none ">
                                 <a class="nav-link" href="20250812-product01-list.html">
                                     <i class=" fa-solid fa-truck text-info me-2"></i>產品列表
                                 </a>
@@ -74,14 +73,14 @@
                         </ul>
                         <div>
                             <!-- 註冊/登入按鈕（未登入時顯示）未引入功能先引導到首頁 -->
-                            <a href="http://localhost/project/20250812-index.html">
-                                <button class="btn btn-outline-warning me-2" data-bs-toggle="modal"
-                                    data-bs-target="#registerModal" id="s02_register_btn">註冊</button>
-                            </a>
-                            <a href="http://localhost/project/20250812-index.html">
-                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#loginModal"
-                                    id="s02_login_btn">登入</button>
-                            </a>
+                            <a href="http://localhost/project/index.html"> 
+                            <button class="btn btn-outline-warning me-2" data-bs-toggle="modal"
+                                data-bs-target="#registerModal" id="s02_register_btn">註冊</button>
+                             </a>
+                            <a href="http://localhost/project/index.html"> 
+                            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#loginModal"
+                                id="s02_login_btn">登入</button>
+                            </a> 
                             <!-- 歡迎詞（登入後顯示） -->
                             <span class="text-success fs-3 me-3 d-none" id="login_showmessage">
                                 歡迎 <span class="text-warning fs-3 fw-900" id="login_showmessage2">XXX</span>
@@ -92,8 +91,7 @@
                                 id="s02_control_btn">控制台</a>
 
                             <!-- 登出（登入後顯示） -->
-                            <a href="20250812-index.html" class="fs-5 fw-900 btn btn-danger d-none"
-                                id="logout_btn">登出</a>
+                            <a href="index.html" class="fs-5 fw-900 btn btn-danger d-none" id="logout_btn">登出</a>
                         </div>
                     </div>
                 </div>

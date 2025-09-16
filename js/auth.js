@@ -152,7 +152,7 @@ function logout() {
                 confirmButtonText: "OK"
             }).then(() => {
                 // 2. 使用 replace() → 不留上一頁紀錄
-                window.location.replace("20250812-index.html");
+                window.location.replace("index.html");
             });
         }
     });
