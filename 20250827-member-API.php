@@ -7,10 +7,14 @@ const DB_SERVER = "localhost";
 const DB_USERNAME = "admin";
 const DB_PASSWORD = "123456";
 const DB_NAME = "testdb"; */
-const DB_SERVER = "localhost";
+/* const DB_SERVER = "localhost";
 const DB_USERNAME = "root";
 const DB_PASSWORD = "";
-const DB_NAME = "testdb";
+const DB_NAME = "testdb"; */
+const DB_SERVER = "btonfk1fezevlaynxohd-mysql.services.clever-cloud.com";
+const DB_USERNAME = "uhpsngd8tma9dx2f";
+const DB_PASSWORD = "SnBYocGCFJy7debiiA1B";
+const DB_NAME = "btonfk1fezevlaynxohd";
 
 //建立連線
 function create_connection()

@@ -1,10 +1,16 @@
 <?php
 //1.常數設定：資料庫連線參數
 //使用 const 定義「不會改變」的參數（資料庫帳號、密碼等）
-const DB_SERVER = "localhost";
+/* const DB_SERVER = "localhost";
 const DB_USERNAME = "root";
 const DB_PASSWORD = "";
-const DB_NAME = "testdb";
+const DB_NAME = "testdb"; */
+
+const DB_SERVER = "btonfk1fezevlaynxohd-mysql.services.clever-cloud.com";
+const DB_USERNAME = "uhpsngd8tma9dx2f";
+const DB_PASSWORD = "SnBYocGCFJy7debiiA1B";
+const DB_NAME = "btonfk1fezevlaynxohd";
+
 
 //2.資料庫連線函式
 //建立連線 封裝連線動作成函式，之後只要 create_connection() 就能快速建立連線
