@@ -1,27 +1,14 @@
 <?php
 //1.常數設定：資料庫連線參數
 //使用 const 定義「不會改變」的參數（資料庫帳號、密碼等）
-/* const DB_SERVER = "localhost";
+const DB_SERVER = "localhost";
 const DB_USERNAME = "root";
 const DB_PASSWORD = "";
-const DB_NAME = "testdb"; */
-$conn = new mysqli(
-    getenv("MYSQL_ADDON_HOST"),
-    getenv("MYSQL_ADDON_USER"),
-    getenv("MYSQL_ADDON_PASSWORD"),
-    getenv("MYSQL_ADDON_DB"),
-    getenv("MYSQL_ADDON_PORT")
-);
-
-if ($conn->connect_error) {
-    die("連線失敗: " . $conn->connect_error);
-}
-echo "資料庫連線成功！";
-
+const DB_NAME = "testdb";
 
 //2.資料庫連線函式
 //建立連線 封裝連線動作成函式，之後只要 create_connection() 就能快速建立連線
-/* function create_connection()
+function create_connection()
 {
     $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
     // 🟡若連線失敗，回傳錯誤 JSON 並中斷程式
@@ -30,26 +17,8 @@ echo "資料庫連線成功！";
         exit(); //連線失敗會直接回傳錯誤 JSON 並 exit() 停止執行
     }
     return $conn;
-} */
-function create_connection() {
-    $conn = mysqli_connect(
-        getenv("MYSQL_ADDON_HOST"),
-        getenv("MYSQL_ADDON_USER"),
-        getenv("MYSQL_ADDON_PASSWORD"),
-        getenv("MYSQL_ADDON_DB"),
-        getenv("MYSQL_ADDON_PORT")
-    );
-
-    if (!$conn) {
-        echo json_encode([
-            "state" => false,
-            "data" => null,
-            "message" => "連線失敗: " . mysqli_connect_error()
-        ]);
-        exit();
-    }
-    return $conn;
 }
+
 //取得所有的產品資料
 //input:none
 //output:{"state" : true, "data" : "所有的產品資料","message" : "讀取資料成功"}
