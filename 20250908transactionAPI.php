@@ -9,17 +9,45 @@ const DB_NAME = "testdb"; */
 const DB_USERNAME = "root";
 const DB_PASSWORD = "";
 const DB_NAME = "testdb"; */
-const DB_SERVER = "btonfk1fezevlaynxohd-mysql.services.clever-cloud.com";
-const DB_USERNAME = "uhpsngd8tma9dx2f";
-const DB_PASSWORD = "SnBYocGCFJy7debiiA1B";
-const DB_NAME = "btonfk1fezevlaynxohd";
+$conn = new mysqli(
+    getenv("MYSQL_ADDON_HOST"),
+    getenv("MYSQL_ADDON_USER"),
+    getenv("MYSQL_ADDON_PASSWORD"),
+    getenv("MYSQL_ADDON_DB"),
+    getenv("MYSQL_ADDON_PORT")
+);
+
+if ($conn->connect_error) {
+    die("連線失敗: " . $conn->connect_error);
+}
+echo "資料庫連線成功！";
 
 //建立連線
-function create_connection()
+/* function create_connection()
 {
     $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
     if (!$conn) {
         echo json_encode(["state" => false, "data" => null, "message" => "連線失敗" . mysqli_connect_error()]);
+        exit();
+    }
+    return $conn;
+} */
+
+function create_connection() {
+    $conn = mysqli_connect(
+        getenv("MYSQL_ADDON_HOST"),
+        getenv("MYSQL_ADDON_USER"),
+        getenv("MYSQL_ADDON_PASSWORD"),
+        getenv("MYSQL_ADDON_DB"),
+        getenv("MYSQL_ADDON_PORT")
+    );
+
+    if (!$conn) {
+        echo json_encode([
+            "state" => false,
+            "data" => null,
+            "message" => "連線失敗: " . mysqli_connect_error()
+        ]);
         exit();
     }
     return $conn;
