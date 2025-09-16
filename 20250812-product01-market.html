@@ -73,14 +73,14 @@
                         </ul>
                         <div>
                             <!-- 註冊/登入按鈕（未登入時顯示）未引入功能先引導到首頁 -->
-                            <a href="http://localhost/project/index.html"> 
-                            <button class="btn btn-outline-warning me-2" data-bs-toggle="modal"
-                                data-bs-target="#registerModal" id="s02_register_btn">註冊</button>
-                             </a>
-                            <a href="http://localhost/project/index.html"> 
-                            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#loginModal"
-                                id="s02_login_btn">登入</button>
-                            </a> 
+                            <a href="http://localhost/project/index.html">
+                                <button class="btn btn-outline-warning me-2" data-bs-toggle="modal"
+                                    data-bs-target="#registerModal" id="s02_register_btn">註冊</button>
+                            </a>
+                            <a href="http://localhost/project/index.html">
+                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#loginModal"
+                                    id="s02_login_btn">登入</button>
+                            </a>
                             <!-- 歡迎詞（登入後顯示） -->
                             <span class="text-success fs-3 me-3 d-none" id="login_showmessage">
                                 歡迎 <span class="text-warning fs-3 fw-900" id="login_showmessage2">XXX</span>
@@ -251,10 +251,10 @@
                 <!-- 看詳情下方的按鈕 -->
                 <div class="modal-footer">
                     <button class="btn btn-outline-secondary" data-bs-dismiss="modal">關閉</button>
-                    <button class="btn btn-warning" id="detail_exchange_btn">
+                    <button class="btn btn-warning d-none" id="detail_exchange_btn">
                         <i class="fa-solid fa-arrows-rotate me-1"></i> 交換
                     </button>
-                    <button class="btn btn-primary" id="detail_buy_btn">
+                    <button class="btn btn-primary d-none" id="detail_buy_btn">
                         <i class="fa-solid fa-cart-shopping me-1"></i> 購買
                     </button>
                 </div>
@@ -301,6 +301,21 @@
                     });
                 }
             });
+
+            function updateDetailButtons() {
+                const role = localStorage.getItem("role");
+
+                if (role == 9) { // 管理員
+                    $("#detail_exchange_btn").removeClass("d-none");
+                    $("#detail_buy_btn").removeClass("d-none");
+                } else if (role == 1) { // 高級會員
+                    $("#detail_exchange_btn").removeClass("d-none");
+                    $("#detail_buy_btn").removeClass("d-none");
+                } else {
+                    $("#detail_exchange_btn").addClass("d-none");
+                    $("#detail_buy_btn").addClass("d-none");
+                }
+            }
 
 
             // 打開購買 Modal

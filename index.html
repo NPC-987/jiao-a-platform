@@ -222,12 +222,12 @@
                                     <i class="fa-solid fa-shop text-info me-2"></i>賣場列表
                                 </a>
                             </li>
-                            <li id="productadd" class="nav-item ">
+                            <li id="productadd" class="nav-item d-none">
                                 <a class="nav-link" href="20250812-product01-add.html">
                                     <i class="fa-solid fa-bag-shopping text-primary me-2"></i>新增產品
                                 </a>
                             </li>
-                            <li id="productlist" class="nav-item  ">
+                            <li id="productlist" class="nav-item  d-none">
                                 <a class="nav-link" href="20250812-product01-list.html">
                                     <i class=" fa-solid fa-truck text-info me-2"></i>產品列表
                                 </a>
@@ -344,7 +344,7 @@
                             <div class="mb-4">
                                 <label class="form-label">密碼</label>
                                 <input type="text" class="form-control" id="password"
-                                    placeholder="至少8~12字,大小寫字母,至少一個數字及特殊符號">
+                                    placeholder="至少6~12字,大小寫字母,至少一個數字及特殊符號">
                                 <div class="valid-feedback">符合規定</div>
                                 <div class="invalid-feedback" id="userPwd">不符合規定</div>
                             </div>
@@ -1248,7 +1248,7 @@
             $("#confirmPassword").removeClass("is-valid is-invalid");
             $("#confirmMsg").text("");
 
-            const getpassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,12}$/;
+            const getpassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,12}$/;
             if (getpassword.test($(this).val())) {
                 $(this).removeClass("is-invalid").addClass("is-valid");
                 $("#userPwd").text("");
@@ -1491,8 +1491,6 @@
             flag_username = false;
         }
     }
-
-
 
 
     // 監聽捲動，決定按鈕顯示或隱藏
