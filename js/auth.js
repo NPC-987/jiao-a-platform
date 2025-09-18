@@ -1,7 +1,7 @@
 // ==============================
 // Auth.js - 全站會員登入管理模組
 // ==============================
-console.log("=== auth.js loaded at 20250909-1730 ===");
+
 // 取得 Cookie
 function getCookie(cname) {
     let name = cname + "=";

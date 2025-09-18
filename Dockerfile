@@ -1,3 +1,5 @@
+#此為一個環境安裝包
+
 # 使用官方 PHP + Apache
 FROM php:8.1-apache
 
@@ -15,3 +17,4 @@ EXPOSE 80
 
 # 啟動 Apache
 CMD ["apache2-foreground"]
+

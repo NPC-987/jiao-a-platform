@@ -1370,7 +1370,7 @@
 
         //登入介面密碼監聽驗證
         $("#loginModal_password").bind("input propertychange", function () {
-            if ($(this).val().length > 8 && $(this).val().length < 16) {
+            if ($(this).val().length > 6 && $(this).val().length < 16) {
                 //符合規定
                 $(this).removeClass("is-invalid");
                 $(this).addClass("is-valid");

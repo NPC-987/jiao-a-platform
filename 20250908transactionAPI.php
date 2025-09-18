@@ -35,7 +35,6 @@ function respond($state, $message, $data = null)
     echo json_encode(["state" => $state, "data" => $data, "message" => $message]);
 }
 
-
 //建立購買
 //input{"buyer_id": 1,"seller_id": 2,"product_id": 10}
 //output{"state": true, "data": {"transaction_id": 15,"type": "purchase"},"message": "購買交易建立成功"}
@@ -88,22 +87,20 @@ function create_purchase_transaction()
     }
 }
 
-
-
-
 //建立交換
 // input : {"buyer_id":1, "seller_id":2, "product_id":10, "type":"purchase", "exchange_product_id":20}
 // output: {"state": true, "data": {"exchange_id":15, "type":"exchange"}, "message":"交換建立成功"}
 function create_exchange_transaction()
 {
-    $input = $_POST; // 注意：交換有檔案，所以用 $_POST + $_FILES
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
 
-    if (isset($input["buyer_id"], $input["seller_id"], $input["product_id"], $_FILES['exchange_img'])) {
-        $buyer_id  = (int)$input["buyer_id"];
-        $seller_id = (int)$input["seller_id"];
-        $product_id = (int)$input["product_id"];
-        $title = $input["exchange_title"] ?? "";
-        $desc  = $input["exchange_desc"] ?? "";
+    if (isset($_POST["buyer_id"], $_POST["seller_id"], $_POST["product_id"], $_FILES['exchange_img'])) {
+        $buyer_id  = (int)$_POST["buyer_id"];
+        $seller_id = (int)$_POST["seller_id"];
+        $product_id = (int)$_POST["product_id"];
+        $title = $_POST["exchange_title"] ?? "";
+        $desc  = $_POST["exchange_desc"] ?? "";
 
         $conn = create_connection();
 
@@ -128,18 +125,19 @@ function create_exchange_transaction()
         $filename = date("YmdHis") . '_' . uniqid() . '_' . $_FILES['exchange_img']['name'];
         $location = 'exchange/' . $filename;
 
-        if (!move_uploaded_file($_FILES['exchange_img']['tmp_name'], $location)) {
-            respond(false, "圖片上傳失敗", null);
+        if (!move_uploaded_file($_FILES['exchange_img']['tmp_name'], __DIR__ . '/' . $location)) {
+            respond(false, "圖片上傳失敗，錯誤碼: " . $_FILES['exchange_img']['error'], null);
             return;
         }
 
         // 插入交易（交換）
         $stmt = $conn->prepare("INSERT INTO transactions 
-            (buyer_id, seller_id, product_id, type, status, shipping_method, note, exchange_title, exchange_desc, exchange_img) 
-            VALUES (?, ?, ?, 'exchange', 'pending', NULL, NULL, ?, ?, ?)");
+            (buyer_id, seller_id, product_id, type, status, exchange_title, exchange_desc, exchange_img) 
+            VALUES (?, ?, ?, 'exchange', 'pending', ?, ?, ?)");
 
-        $stmt->bind_param("iisss", $buyer_id, $seller_id, $product_id, $title, $desc, $location);
+        $stmt->bind_param("iiisss", $buyer_id, $seller_id, $product_id, $title, $desc, $location);
 
+        
         if ($stmt->execute()) {
             respond(true, "交換交易建立成功", [
                 "transaction_id" => $stmt->insert_id,
@@ -155,8 +153,6 @@ function create_exchange_transaction()
         respond(false, "缺少必要欄位", null);
     }
 }
-
-
 
 
 

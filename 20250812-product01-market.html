@@ -12,13 +12,59 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
     <style>
+        /* --- 防詐提醒動畫 --- */
         #s01 i {
-            animation-duration: 2s
+            animation-duration: 2s;
         }
 
         #s01 span {
             white-space: nowrap;
             /* 避免斷行 */
+        }
+
+        /* --- 分頁樣式 --- */
+
+        /* 上一頁：左邊直角，右邊圓角 */
+        .page-item:first-child .page-link {
+            border-radius: 50px 0 0 50px;
+        }
+
+        /* 下一頁：右邊直角，左邊圓角 */
+        .page-item:last-child .page-link {
+            border-radius: 0 50px 50px 0;
+        }
+
+        /* 頁碼按鈕：文字與邊框顏色 */
+        .pagination .page-link {
+            color: #198754;
+            /* 綠色文字 */
+            border: 1px solid #198754;
+            /* 綠色邊框 */
+            transition: all 0.2s;
+            /* 加點滑順效果 */
+        }
+
+        /* 滑鼠移上去 */
+        .pagination .page-link:hover {
+            background-color: #198754;
+            /* 綠底 */
+            color: #fff;
+            /* 白字 */
+        }
+
+        /* 當前頁 */
+        .pagination .active .page-link {
+            background-color: #ffc107;
+            /* 黃底 */
+            border-color: #ffc107;
+            color: #000;
+            /* 黑字 */
+        }
+
+        /* 禁用狀態 */
+        .pagination .disabled .page-link {
+            color: #aaa;
+            border-color: #ccc;
         }
     </style>
 
@@ -100,26 +146,34 @@
     </section>
 
     <!-- 預設框架 -->
-    <div class="container">
-        <div class="row" id="mydata">
-            <div class="col-md-3 mt-3">
-                <div class="card shadow-lg">
-                    <img src="images/coffee01.png" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title fs-2 fw-900">產品名稱</h5>
-                        <p class="card-text">價格: <span class="fs-3 fw-900 text-danger">199</span>元</p>
-                        <p class="card-text">狀態: <span class="fs-3 fw-900 text-success">正常</span></p>
-                        <p class="card-text">說明: <span class="fs-3 fw-900 text-success">阿布拉布拉布拉</span></p>
-                        <div class="text-center">
-                            <a href="#" class="btn btn-warning">購買</a>
-                            <a href="#" class="btn btn-primary">交換</a>
+    <section id="s07" class="" style="background-image: url(images/bg04.jpg);background-attachment: fixed;">
+        <div style="background-color: rgba(0,0,0,0.5);">
+            <div class="container">
+                <div id="pagination" class="mt-4">翻頁</div>
+                <div class="row" id="mydata">
+                    <div class="col-md-3 mt-3">
+                        <div class="card shadow-lg ">
+                            <img src="images/coffee01.png" class="card-img-top" alt="...">
+                            <div class="card-body bg-secondary">
+                                <h5 class="card-title fs-2 fw-900">產品名稱</h5>
+                                <p class="card-text">價格: <span class="fs-3 fw-900 text-danger">199</span>元</p>
+                                <p class="card-text">狀態: <span class="fs-3 fw-900 text-success">正常</span></p>
+                                <p class="card-text" maxlength="10">說明: <span
+                                        class="fs-3 fw-900 text-success">阿布拉布拉布拉</span>
+                                </p>
+                                <div class="text-center">
+                                    <a href="#" class="btn btn-warning">購買</a>
+                                    <a href="#" class="btn btn-primary">交換</a>
+                                </div>
+                            </div>
                         </div>
-
                     </div>
                 </div>
+                <div id="pagination" class="mt-4">翻頁</div>
             </div>
+
         </div>
-    </div>
+    </section>
 
     <!-- 點選購買彈出的視窗  -->
     <div class="modal fade" id="buyModal" tabindex="-1" aria-hidden="true">
@@ -144,7 +198,8 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">備註</label>
+                        <label class="form-label">購買備註<span class="fw-900 text-danger">(上限100字
+                                打再多也只會上傳100字)</span></label>
                         <textarea id="buy_note" class="form-control" rows="5"></textarea>
                     </div>
                 </div>
@@ -181,7 +236,9 @@
 
                     <div class="mb-3">
                         <label class="form-label">物品圖片</label>
-                        <input type="file" class="form-control" id="ex_offer_img" accept="image/*">
+                        <!-- accept:限定選擇圖片的副檔名 -->
+                        <input type="file" class="form-control" id="ex_offer_img"
+                            accept="image/.jpeg,image/.jpeg,.png,image/gif">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -263,12 +320,12 @@
     </div>
 
 
-
-    <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/jquery-3.7.1.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/counterup2@2.0.2/dist/index.js">	</script>
     <script src="./js/auth.js"></script>
-
+    <script src="js/wow.min.js"></script>
     <script>
 
         console.log("使用者權限:", localStorage.getItem("role"));
@@ -277,6 +334,8 @@
 
 
         $(function () {
+            new WOW().init();
+
             // 統一取得角色權限的方法
             function getRole() {
                 const raw = localStorage.getItem("role");
@@ -304,7 +363,7 @@
 
             function updateDetailButtons() {
                 const role = localStorage.getItem("role");
-
+                //判斷會員等級決定顯示按鈕
                 if (role == 9) { // 管理員
                     $("#detail_exchange_btn").removeClass("d-none");
                     $("#detail_buy_btn").removeClass("d-none");
@@ -343,6 +402,10 @@
             // 打開交換 Modal
             $(document).on("click", ".js-exchange", function () {
                 const role = getRole();
+                const pid = $(this).data("id");
+                const seller = $(this).data("seller");
+                $("#ex_product_id").val(pid);
+                $("#ex_seller_id").val(seller);
 
                 if (role === -1) {
                     // 訪客禁止
@@ -372,7 +435,6 @@
                 }
             });
 
-
             // 看詳情按鈕 打開「商品詳情」Modal 並帶入資料
             $(document).on("click", ".js-detail", function () {
                 const d = $(this).data();// 先取 data-* 帶入 d
@@ -389,7 +451,7 @@
                 $("#detail_price").text(d.price);
                 $("#detail_img").attr("src", cover)
                     .attr("onerror", "this.onerror=null;this.src='images/nofind.jpg'");
-                $("#detail_pnote").val(d.pnote || "無說明");
+                $("#detail_pnote").val(d.pnote || "這個人很懶，什麼都沒留下");
 
 
                 // radio 全部 disabled，但預選顯示
@@ -455,7 +517,7 @@
 
             // 送出「交換」請求
             $(document).on("click", "#ex_submit", function () {
-                const formData = new FormData();
+                let formData = new FormData();
                 formData.append("buyer_id", localStorage.getItem("uid")); // 登入會員
                 formData.append("seller_id", $("#ex_seller_id").val());
                 formData.append("product_id", $("#ex_product_id").val());
@@ -467,31 +529,39 @@
                 if (file) {
                     formData.append("exchange_img", file);
                 }
-
-                // 簡單驗證
-                if (!$("#ex_offer_title").val().trim()) {
+                // 驗證
+                let flag_title = $("#ex_offer_title").val().trim() !== "";
+                let flag_desc = $("#ex_offer_desc").val().trim() !== "";
+                let flag_img = $("#ex_offer_img")[0].files.length > 0;
+                if (!(flag_title && flag_desc && flag_img)) {
                     Swal.fire({
-                        title: "請輸入品項名稱",
+                        title: "請填寫完整資料",
+                        text: "需要名稱、說明、圖片",
                         icon: "warning"
                     });
                     return;
                 }
-
+                for (let [key, value] of formData.entries()) {
+                    console.log(key, value);
+                }
                 $.ajax({
                     type: "POST",
-                    url: "./20250908transactionAPI.php?action=createxchangetransaction",
+                    url: "./20250908transactionAPI.php?action=createexchangetransaction",
                     data: formData,
                     processData: false, // 不轉換資料
                     contentType: false, // 不要自動加 Content-Type
+                    dataType: "json",
                     success: function (res) {
+                        console.log("伺服器回應：", res);
                         if (res.state) {
                             Swal.fire({
                                 title: "交換提案成功",
-                                text: "交易編號：" + res.data.transaction_id, icon: "success"
-                            }
-                            );
+                                text: "交易編號：" + res.data.transaction_id,
+                                icon: "success"
+                            });
                             //清空
                             $("#ex_offer_title,#ex_offer_desc,#ex_offer_img").val('');
+                            $("#ex_offer_img").val(null);
                             //關閉視窗
                             const exModal = bootstrap.Modal.getInstance(document.getElementById('exchangeModal'));
                             exModal && exModal.hide();
@@ -503,7 +573,9 @@
                             });
                         }
                     },
-                    error: function () {
+                    error: function (xhr, status, error) {
+                        console.error("AJAX 錯誤：", status, error);
+                        console.error("伺服器回應：", xhr.responseText);
                         Swal.fire({
                             title: "連線失敗",
                             icon: "error"
@@ -543,14 +615,36 @@
                 new bootstrap.Modal(document.getElementById('exchangeModal')).show();
             });
 
-            function showdata_getalldata(data) {
-                console.log(data);
-                $("#mydata").empty();
-                data.data.forEach(function (item) {
+            let allProducts = [];  // 存全部商品
+            let currentPage = 1;
+            const limit = 12; // 每頁顯示幾筆
 
-                    const safeNote = (item.Pnote || '').replace(/"/g, '&quot;');
+            //AJAX 成功後呼叫 → 將資料存起來 & 顯示第一頁
+            function showdata_getalldata(data) {
+                allProducts = data.data; // 存全部資料
+                currentPage = 1;         // 預設第一頁
+                drawView();              // 畫出畫面
+                renderPagination();      // 畫分頁按鈕
+            }
+
+            function drawView() {
+                $("#mydata").empty();
+
+                // 算出範圍
+                let start = (currentPage - 1) * limit;       // 起始索引
+                let end = start + limit;                     // 結束索引
+                let pageData = allProducts.slice(start, end);// 用 slice 取出該頁的資料
+
+                // 逐筆畫出
+                pageData.forEach(function (item) {
+                    //判斷說明的字數20個為限
+                    const noteText = item.Pnote && item.Pnote.trim() !== ""
+                        ? item.Pnote.substring(0, 20) + (item.Pnote.length > 20 ? "..." : "")
+                        : "這個人很懶，什麼都沒留下";
+
                     const strHTML = `
-                    <div class="col-sm-6 col-md-4 col-lg-3 mt-3">
+                    <div class="col-sm-6 col-md-4 col-lg-3 mt-3 wow animate__animated animate__fadeInDown" data-wow-duration="0.8s"
+                        data-wow-delay="0.1s ">
                         <div class="card shadow-lg h-100 ">
                         <img src="${item.Pimg}" class="card-img-top " alt="${item.Pname}">
                         <div class="card-body d-flex flex-column">
@@ -559,9 +653,9 @@
                                 <span class=" fs-3 fw-900 text-danger ">${item.Price}</span> 元
                             </p>
                             <p class="card-text fs-3 fw-900  mb-3">狀態：
-                                <span class=" fs-3 fw-900 text-success ">${item.Pice ?? '—'}</span>
+                                <span class=" fs-3 fw-900 text-success">${item.Pice ?? '—'}</span>
                             </p>
-                            <p class="card-text fw-500 text-muted small mb-3">說明：${item.Pnote ?? '—'}
+                            <p class="card-text fw-500 text-muted fs-5 mb-3 " >說明： <span class="  fw-900 ">${noteText}</span>
                             </p>
                             <div class="mt-auto d-grid gap-2">
                             <button class="btn btn-primary js-buy"
@@ -590,12 +684,50 @@
                     $("#mydata").append(strHTML);
                 });
             }
+            //分頁按鈕
+            function renderPagination() {
+                let totalPages = Math.ceil(allProducts.length / limit);// 總頁數
+                let html = `<nav><ul class="pagination justify-content-center">`;
+
+                // 上一頁（第一頁時 disable）
+                html += `
+                <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+                    <a class="page-link" href="#" data-page="${currentPage - 1}"><i class="fa-solid fa-arrow-left"></i></a>
+                </li>`;
+
+                //頁碼
+                for (let i = 1; i <= totalPages; i++) {
+                    html += `
+                    <li class="page-item ${i === currentPage ? 'active' : ''}">
+                        <a class="page-link" data-page=${i} href="#">${i}</a>
+                    </li>`;
+                }
+
+                // 下一頁（最後一頁時 disable）
+                html += `
+                <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+                    <a class="page-link" href="#" data-page="${currentPage + 1}"><i class="fa-solid fa-arrow-right"></i></a>
+                </li>`;
+
+                html += `</ul></nav>`;
+                $("#pagination").html(html);// 插入頁面
+
+            }
 
 
 
+            // 監聽分頁按鈕（包含上一頁、下一頁、數字）
+            $(document).on("click", ".page-link", function (e) {
+                e.preventDefault();
+                let page = parseInt($(this).data("page"));// 取出 data-page
+                // 如果數字有效，才切換頁面
+                if (!isNaN(page) && page >= 1 && page <= Math.ceil(allProducts.length / limit)) {
+                    currentPage = page;
+                    drawView();         // 重新渲染當頁資料
+                    renderPagination(); // 重新渲染分頁按鈕
+                }
+            });
         });
-
-
 
     </script>
 </body>
